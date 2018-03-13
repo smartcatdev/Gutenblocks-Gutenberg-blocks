@@ -1,0 +1,28 @@
+{
+  "name": "gutenblox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/smartcatdev/Gutenblox.git",
+  "author": "Eric Green <ericgreen.developer@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch",
+    "clean": "rm -rf ./build/*"
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.7",
+    "@types/react": "^16.0.40",
+    "css-loader": "^0.28.10",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "reflect-metadata": "^0.1.12"
+  }
+}
