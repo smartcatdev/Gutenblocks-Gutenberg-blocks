@@ -1,10 +1,20 @@
-const glob = require('glob')
+const glob = require('glob'),
+      fs = require('fs-extra')
+
+const getBlocks = (path) => {
+  let entries = {}
+  fs.readdirSync(path)
+    .forEach(file => {
+      if (fs.statSync(`${path}/${file}`).isDirectory()) {
+        entries[`${file}.editor`] = `${path}/${file}/index.js`
+        entries[`${file}.site`] = `${path}/${file}/pkg.js`
+      }
+    })
+  return entries
+}
 
 module.exports = {
-  entry: {
-    editor: `${__dirname}/src/index.js`,
-    site: glob.sync(`${__dirname}/src/**/pkg.js`)
-  },
+  entry: getBlocks(`${__dirname}/src/core/blocks`),
   devtool: 'inline-source-map',
   module: {
     rules: [

@@ -1,1 +1,1 @@
-export * from './block'
+import './block'

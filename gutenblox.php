@@ -8,30 +8,34 @@
  */
 namespace gblx;
 
-add_action( 'enqueue_block_editor_assets', 'gblx\enqueue_editor_assets' );
+add_action( 'init', 'gblx\register_blocks' );
 
-add_action( 'wp_enqueue_scripts', 'gblx\enqueue_frontend_assets' );
-
-function enqueue_editor_assets() {
-  $file = 'build/blocks.bundle.js';
-  $deps = array( 
-    'wp-blocks', 
-    'wp-i18n', 
-    'wp-element' 
+function register_blocks() {
+  $blocks = array(
+    'gblx/cta' => array(
+      'init'   => function () {
+        $file = 'build/cta.editor.bundle.js';
+        $deps = array( 
+          'wp-blocks', 
+          'wp-i18n', 
+          'wp-element' 
+        );
+        wp_enqueue_script( 'gblx-cta-editor', plugins_url( $file, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
+        
+        $file = 'build/cta.site.bundle.js';
+        $deps = array( 
+          'jquery' 
+        );
+        wp_enqueue_script( 'gblx-cta', plugins_url( $file, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
+      },
+      'config' => array(
+        'editor-script' => 'gblx-cta-editor',
+        'script'        => 'gblx-cta'
+      )
+    )
   );
-  wp_enqueue_script( 'gblx', plugins_url( $file, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
-
-  $file = 'build/styles.css';
-  $deps = array(
-    'wp-edit-blocks'
-  );
-  // wp_enqueue_style( 'gblx', plugins_url( $file, __FILE__ ), null, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
-}
-
-function enqueue_frontend_assets() {
-  $file = 'build/site.bundle.js';
-  $deps = array( 
-    'jquery'
-  );
-  wp_enqueue_script( 'gblx', plugins_url( $file, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
+  foreach( $blocks as $name => $block ) {
+    call_user_func( $block['init'] );
+    register_block_type( $name, $block['config'] );
+  }
 }
