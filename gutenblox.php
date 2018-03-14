@@ -11,31 +11,33 @@ namespace gblx;
 add_action( 'init', 'gblx\register_blocks' );
 
 function register_blocks() {
-  $blocks = array(
+  $block_types = array(
     'gblx/cta' => array(
       'init'   => function () {
-        $file = 'build/cta.editor.bundle.js';
+        $e = 'build/cta.editor.bundle.js';
         $deps = array( 
           'wp-blocks', 
           'wp-i18n', 
-          'wp-element' 
+          'wp-element'
         );
-        wp_enqueue_script( 'gblx-cta-editor', plugins_url( $file, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
+        wp_register_script( 'gblx-cta-editor', plugins_url( $e, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $e ) );
         
-        $file = 'build/cta.site.bundle.js';
-        $deps = array( 
-          'jquery' 
-        );
-        wp_enqueue_script( 'gblx-cta', plugins_url( $file, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $file ) );
+        if ( !is_admin() ) {
+          $s = 'build/cta.site.bundle.js';
+          $deps = array(
+            'jquery' 
+          );
+          wp_enqueue_script( 'gblx-cta', plugins_url( $s, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $s ) );
+        }
       },
       'config' => array(
-        'editor-script' => 'gblx-cta-editor',
-        'script'        => 'gblx-cta'
+        'editor_script' => 'gblx-cta-editor'
       )
     )
   );
-  foreach( $blocks as $name => $block ) {
+
+  foreach( $block_types as $type => $block ) {
     call_user_func( $block['init'] );
-    register_block_type( $name, $block['config'] );
+    register_block_type( $type, $block['config'] );
   }
 }
