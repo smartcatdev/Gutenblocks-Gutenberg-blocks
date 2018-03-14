@@ -1,2 +1,1 @@
-import 'reflect-metadata'
-import '@gblx/core'
+import '@gblx'

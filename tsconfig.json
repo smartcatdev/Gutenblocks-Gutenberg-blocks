@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "module": "es6",
     "target": "es5",
     "noImplicitAny": true,
@@ -13,7 +11,10 @@
     "baseUrl": ".",
     "paths": {
       "@gblx/*": [
-        "src/*"
+        "src/core/*"
+      ],
+      "@wordpress/*": [
+        "src/wordpress/*"
       ]
     },
     "lib": [

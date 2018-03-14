@@ -1,1 +1,1 @@
-import './demo'
+export { default as Carousel } from './carousel'

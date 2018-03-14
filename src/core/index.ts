@@ -1,1 +1,1 @@
-import './blocks'
+export * from './blocks'

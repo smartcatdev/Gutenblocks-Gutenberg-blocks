@@ -15,11 +15,12 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      '@gblx': `${__dirname}/src`
+      '@gblx': `${__dirname}/src/core`,
+      '@wordpress': `${__dirname}/src/wordpress`
     }
   },
   output: {
     filename: '[name].bundle.js',
-    path: `${__dirname}/build`
+    path: `${__dirname}/build`,
   }
 }
