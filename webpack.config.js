@@ -2,8 +2,8 @@ const glob = require('glob')
 
 module.exports = {
   entry: {
-    blocks: `${__dirname}/src/index.js`,
-    site: glob.sync(`${__dirname}/src/**/pkg/index.js`)
+    editor: `${__dirname}/src/index.js`,
+    site: glob.sync(`${__dirname}/src/**/pkg.js`)
   },
   devtool: 'inline-source-map',
   module: {
