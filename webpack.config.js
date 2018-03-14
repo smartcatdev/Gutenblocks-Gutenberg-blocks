@@ -1,6 +1,9 @@
+const glob = require('glob')
+
 module.exports = {
   entry: {
-    blocks: `${__dirname}/src/index.js`
+    blocks: `${__dirname}/src/index.js`,
+    site: glob.sync(`${__dirname}/src/**/pkg/index.js`)
   },
   devtool: 'inline-source-map',
   module: {
@@ -12,6 +15,27 @@ module.exports = {
         options: {
           presets: ['env', 'react']
         }
+      },
+      {
+        test: /^((?!\.?global).)*scss$/,
+        use: [
+          { loader: 'style-loader' }, 
+          {
+            loader: 'css-loader',
+            options: {
+              module: true
+            }
+          }, 
+          { loader: 'sass-loader' }
+        ]
+      },
+      {
+        test: /\.?global.scss$/,
+        use: [
+          { loader: 'style-loader' }, 
+          { loader: 'css-loader' }, 
+          { loader: 'sass-loader' }
+        ]
       }
     ]
   },
