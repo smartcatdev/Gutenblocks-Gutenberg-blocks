@@ -1,19 +1,22 @@
 module.exports = {
   entry: {
-    blocks: `${__dirname}/src/index.ts`
+    blocks: `${__dirname}/src/index.js`
   },
   devtool: 'inline-source-map',
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['env', 'react']
+        }
       }
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.jsx', '.js'],
     alias: {
       '@gblx': `${__dirname}/src/core`,
       '@wordpress': `${__dirname}/src/wordpress`

@@ -1,1 +1,5 @@
-export const { registerBlockType } = wp.blocks;
+export const { 
+  RichText,
+  Editable,
+  registerBlockType
+} = wp.blocks
