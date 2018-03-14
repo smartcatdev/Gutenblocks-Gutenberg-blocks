@@ -18,7 +18,8 @@ function register_blocks() {
         $deps = array( 
           'wp-blocks', 
           'wp-i18n', 
-          'wp-element'
+          'wp-element',
+          'wp-components'
         );
         wp_register_script( 'gblx-cta-editor', plugins_url( $e, __FILE__ ), $deps, filemtime( plugin_dir_path( __FILE__ ) . $e ) );
         
