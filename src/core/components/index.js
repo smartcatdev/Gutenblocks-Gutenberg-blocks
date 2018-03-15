@@ -1,1 +1,1 @@
-export { default as MediaUploader } from './media-uploader'
+export { default as BackgroundImage } from './background-image'

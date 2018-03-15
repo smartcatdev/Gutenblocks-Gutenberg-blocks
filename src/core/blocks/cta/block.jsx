@@ -6,24 +6,13 @@ import {
 	RichText,
 	InspectorControls,
 	registerBlockType,
-	MediaUpload
 } from '@wordpress/blocks'
 import {
 	PanelBody,
-	DropZone,
-	Placeholder,
-	FormFileUpload,
-	Button
 } from '@wordpress/components'
 import {
-	mediaUpload 
-} from '@wordpress/utils'
-import {
-	MediaUploader 
+	BackgroundImage 
 } from '@gblx/components'
-import {
-	handleImageUpload 
-} from '@gblx/utils/media'
 import styles from './block.scss'
 
 /**
@@ -59,35 +48,6 @@ class GblxCta {
 		)
 	}
 
-	renderImageUpload = (image, onSelect) => {
-		if (image) {
-			return null
-		}
-		const uploadImage = (file) => handleImageUpload(file, (media) => onSelect(media.url))
-		return (
-			<Placeholder
-				className={styles.imagePlaceholder}
-				icon="format-image"
-				instructions={__('Drag image here or add from media library', 'gblx')}
-				label={__('Background Image', 'gblx')}>
-				<DropZone onFilesDrop={(files) => uploadImage((files[0]))} />
-				<FormFileUpload 
-					onChange={(e) => uploadImage((e.target.files[0]))}
-					className="wp-block-image__upload-button button button-large"
-					isLarge>
-					{__('Upload', 'glbx')}
-				</FormFileUpload>
-				<MediaUpload
-					onSelect={(media) => onSelect(media.url)}
-					type="image"
-					render={({ open }) => (
-						<Button onClick={open} isLarge>{__('Add from Media Library', 'gblx')}</Button>
-					)} 
-					/>
-			</Placeholder>
-		)
-	}
-
 	edit = ({ className, attributes, setAttributes, isSelected }) => {
 		const {
 			background
@@ -95,12 +55,13 @@ class GblxCta {
 		return (
 			<div className={styles.test}>
 				{this.renderInspector(isSelected)}
-				{this.renderImageUpload(background, (background) => setAttributes({ background }))}
-				<div style={{ backgroundImage: `url(${background})` }}>
-					<RichText 
-						onChange={(content) => setAttributes({ content })}
-						value={attributes.content} />
-				</div>
+				<BackgroundImage 
+					image={background}
+					onSelect={(background) => setAttributes({ background })}>
+						<RichText 
+							onChange={(content) => setAttributes({ content })}
+							value={attributes.content} />
+				</BackgroundImage>
 			</div>
 		)
 	}
