@@ -66,9 +66,10 @@ class GblxCta {
 		const uploadImage = (file) => handleImageUpload(file, (media) => onSelect(media.url))
 		return (
 			<Placeholder
+				className={styles.imagePlaceholder}
 				icon="format-image"
 				instructions={__('Drag image here or add from media library', 'gblx')}
-				label={__( 'Background Image', 'gblx' )}>
+				label={__('Background Image', 'gblx')}>
 				<DropZone onFilesDrop={(files) => uploadImage((files[0]))} />
 				<FormFileUpload 
 					onChange={(e) => uploadImage((e.target.files[0]))}
