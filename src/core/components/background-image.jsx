@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types'
 import { 
 	__ 
 } from '@wordpress/i18n'
 import { 
-	MediaUpload
+  MediaUpload
 } from '@wordpress/blocks'
 import {
 	DropZone,
@@ -18,13 +19,14 @@ import {
 } from '@gblx/utils/media'
 import styles from './background-image.scss'
 
-const BackgroundImage = ({ image, onSelect, children }) => {
-  const uploadImage = (file) => handleImageUpload(file, (media) => onSelect(media.url))
+const BackgroundImage = ({ style, image, onSelect, children }) => {
+  const uploadImage = (file) => handleImageUpload(file, (media) => onSelect(media.url)) 
   if (image) {
     return (
-      <div style={{ backgroundImage: `url(${image})` }}>
+      <section 
+        style={{ ...style, backgroundImage: `url(${image})` }}>
         {children}
-      </div>
+      </section>
     )
   }
   return (
@@ -49,6 +51,12 @@ const BackgroundImage = ({ image, onSelect, children }) => {
         />
     </Placeholder>
   )
+}
+
+BackgroundImage.propTypes = {
+  image: PropTypes.string,
+  onSelect: PropTypes.func,
+  children: PropTypes.array
 }
 
 export default BackgroundImage

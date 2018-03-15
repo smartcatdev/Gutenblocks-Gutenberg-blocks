@@ -4,5 +4,6 @@ export const {
   DropZone,
   Placeholder,
   FormFileUpload,
-  Button
+  Button,
+  RangeControl
 } = wp.components

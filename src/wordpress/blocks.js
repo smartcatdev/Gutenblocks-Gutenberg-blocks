@@ -5,5 +5,7 @@ export const {
   ColorPalette,
   InspectorControls,
   registerBlockType,
-  MediaUpload
+  MediaUpload,
+  BlockControls,
+  AlignmentToolbar
 } = wp.blocks
