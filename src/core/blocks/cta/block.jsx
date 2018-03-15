@@ -1,4 +1,6 @@
-import { __ } from '@wordpress/i18n'
+import { 
+	__ 
+} from '@wordpress/i18n'
 import { 
 	ColorPalette,
 	RichText,
@@ -14,8 +16,14 @@ import {
 	Button
 } from '@wordpress/components'
 import {
+	mediaUpload 
+} from '@wordpress/utils'
+import {
 	MediaUploader 
 } from '@gblx/components'
+import {
+	handleImageUpload 
+} from '@gblx/utils/media'
 import styles from './block.scss'
 
 /**
@@ -24,7 +32,7 @@ import styles from './block.scss'
  * @since 1.0.0
  */
 class GblxCta {
-	title = __( 'GBLX CTA', 'gblx' )
+	title = __('GBLX CTA', 'gblx')
 	icon = 'megaphone'
 	category = 'common'
 	attributes = {
@@ -45,40 +53,53 @@ class GblxCta {
 		}
 		return (
 			<InspectorControls>
-				<PanelBody title={ __('Background Settings', 'gblx') }>
+				<PanelBody title={__('Background Settings', 'gblx')}>
 				</PanelBody>
 			</InspectorControls>
 		)
 	}
-	
+
+	renderImageUpload = (image, onSelect) => {
+		if (image) {
+			return null
+		}
+		const uploadImage = (file) => handleImageUpload(file, (media) => onSelect(media.url))
+		return (
+			<Placeholder
+				icon="format-image"
+				instructions={__('Drag image here or add from media library', 'gblx')}
+				label={__( 'Background Image', 'gblx' )}>
+				<DropZone onFilesDrop={(files) => uploadImage((files[0]))} />
+				<FormFileUpload 
+					onChange={(e) => uploadImage((e.target.files[0]))}
+					className="wp-block-image__upload-button button button-large"
+					isLarge>
+					{__('Upload', 'glbx')}
+				</FormFileUpload>
+				<MediaUpload
+					onSelect={(media) => onSelect(media.url)}
+					type="image"
+					render={({ open }) => (
+						<Button onClick={open} isLarge>{__('Add from Media Library', 'gblx')}</Button>
+					)} 
+					/>
+			</Placeholder>
+		)
+	}
+
 	edit = ({ className, attributes, setAttributes, isSelected }) => {
+		const {
+			background
+		} = attributes
 		return (
 			<div className={styles.test}>
-				{ this.renderInspector(isSelected) }
-				<Placeholder
-					icon="format-image"
-					instructions={ __('Drag image here or add from media library', 'gblx') }
-					label={ __( 'Background Image', 'gblx' )}>
-					<DropZone />
-					<FormFileUpload 
-						className="wp-block-image__upload-button button button-large"
-						isLarge>
-						{ __('Upload', 'glbx') }
-					</FormFileUpload>
-					<MediaUpload
-						onSelect={ (media) => console.log('selected ' + media.length) }
-						type="image"
-						render={ ({ open }) => (
-							<Button onClick={ open } isLarge>
-								{ __('Add from Media Library', 'gblx') }
-							</Button>
-						) } 
-						/>
-				</Placeholder>
-				<RichText 
-					style={ { background: attributes.background } }
-					onChange={ (content) => setAttributes({ content }) }
-					value={ attributes.content } />
+				{this.renderInspector(isSelected)}
+				{this.renderImageUpload(background, (background) => setAttributes({ background }))}
+				<div style={{ backgroundImage: `url(${background})` }}>
+					<RichText 
+						onChange={(content) => setAttributes({ content })}
+						value={attributes.content} />
+				</div>
 			</div>
 		)
 	}
