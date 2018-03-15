@@ -4,5 +4,6 @@ export const {
   Editable,
   ColorPalette,
   InspectorControls,
-  registerBlockType
+  registerBlockType,
+  MediaUpload
 } = wp.blocks
