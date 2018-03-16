@@ -70,23 +70,51 @@ class GblxCta {
 		fixedBackground: {
 			type: 'boolean'
 		},
-		showPrimaryCta: {
+		showPrimaryCallout: {
 			type: 'boolean'
 		},
-		showSecondaryCta: {
+		showSecondaryCallout: {
 			type: 'boolean'
 		},
-		primaryCtaText: {
+		primaryCalloutText: {
 			source: 'children',
 			selector: '.gblx-primary-cta'
 		},
-		secondaryCtaText: {
+		secondaryCalloutText: {
 			source: 'children',
 			selector: '.gblx-secondary-cta'
 		},
 		textBrightness: {
 			type: 'integer',
 			default: 100
+		},
+		primaryColor: {
+			type: 'string'
+		},
+		accentColor: {
+			type: 'string'
+		},
+		calloutBorder: {
+			type: 'integer',
+			default: 2
+		},
+		calloutBorderRadius: {
+			type: 'integer',
+			default: 4
+		},
+		calloutShowBackground: {
+			type: 'boolean',
+			default: true
+		},
+		calloutTransformText: {
+			type: 'boolean',
+			default: true
+		},
+		calloutMargin: {
+			type: 'integer'
+		},
+		calloutPadding: {
+			type: 'integer'
 		}
 	}
 	
@@ -102,8 +130,16 @@ class GblxCta {
 			fixedBackground,
 			textAlignment,
 			textBrightness,
-			showPrimaryCta,
-			showSecondaryCta
+			showPrimaryCallout,
+			showSecondaryCallout,
+			primaryColor,
+			accentColor,
+			calloutMargin,
+			calloutPadding,
+			calloutBorder,
+			calloutBorderRadius,
+			calloutShowBackground,
+			calloutTransformText
 		} = attributes
 		return (
 			<InspectorControls>
@@ -115,8 +151,8 @@ class GblxCta {
 						label={__('Primary Callout', 'gblx')}>
 						<FormToggle 
 							id="gblx-primary-cta-toggle"
-							checked={showPrimaryCta}
-							onChange={(e) => setAttributes({ showPrimaryCta: e.target.checked })} />
+							checked={showPrimaryCallout}
+							onChange={(e) => setAttributes({ showPrimaryCallout: e.target.checked })} />
 					</BaseControl>
 					<BaseControl
 						id="gblx-secondary-cta-toggle"
@@ -124,29 +160,65 @@ class GblxCta {
 						label={__('Secondary Callout', 'gblx')}>
 							<FormToggle 
 								id="gblx-secondary-cta-toggle"
-								checked={showSecondaryCta}
-								onChange={(e) => setAttributes({ showSecondaryCta: e.target.checked })} />
+								checked={showSecondaryCallout}
+								onChange={(e) => setAttributes({ showSecondaryCallout: e.target.checked })} />
 					</BaseControl>
 				</div>
 				<PanelBody title={__('Primary Color', 'gblx')}>
 					<ColorPalette 
-							value={overlayColor} 
-							onChange={(overlayColor) => setAttributes({ overlayColor })} />
+							value={primaryColor} 
+							onChange={(primaryColor) => setAttributes({ primaryColor })} />
 				</PanelBody>
-				<PanelBody title={__('Secondary Color', 'gblx')}>
+				<PanelBody title={__('Accent Color', 'gblx')}>
 					<ColorPalette 
-							value={overlayColor} 
-							onChange={(overlayColor) => setAttributes({ overlayColor })} />
+						value={accentColor} 
+						onChange={(accentColor) => setAttributes({ accentColor })} />
 				</PanelBody>
 				<PanelBody title={__('Callout Buttons', 'gblx')}>
+					<BaseControl
+						id="gblx-cta-background-toggle"
+						className="blocks-toggle-control"
+						label={__('Show Background', 'gblx')}>
+							<FormToggle 
+								id="gblx-cta-background-toggle"
+								checked={calloutShowBackground}
+								onChange={(e) => setAttributes({ calloutShowBackground: e.target.checked })} />
+					</BaseControl>
+					<BaseControl
+						id="gblx-cta-transform-text-toggle"
+						className="blocks-toggle-control"
+						label={__('Transform Text', 'gblx')}>
+							<FormToggle 
+								id="gblx-cta-transform-text-toggle"
+								checked={calloutTransformText}
+								onChange={(e) => setAttributes({ calloutTransformText: e.target.checked })} />
+					</BaseControl>
+					<RangeControl
+						min={0}
+						max={4}
+						value={calloutBorder}
+						label={__('Border Thickness', 'gblx')}
+						onChange={(calloutBorder) => setAttributes({ calloutBorder })} />
+					<RangeControl
+						min={0}
+						max={100}
+						value={calloutBorderRadius}
+						label={__('Border Radius', 'gblx')}
+						onChange={(calloutBorderRadius) => setAttributes({ calloutBorderRadius })} />
+					<RangeControl
+						min={5}
+						max={30}
+						value={calloutMargin}
+						label={__('Margin', 'gblx')}
+						onChange={(calloutMargin) => setAttributes({ calloutMargin })} />
 				</PanelBody>
 				<PanelBody title={__('Background Settings', 'gblx')}>
 					<RangeControl
-							min={0}
-							max={100}
-							value={overlayOpacity}
-							label={__('Overlay Opacity', 'gblx')}
-							onChange={(overlayOpacity) => setAttributes({ overlayOpacity })} />
+						min={0}
+						max={100}
+						value={overlayOpacity}
+						label={__('Overlay Opacity', 'gblx')}
+						onChange={(overlayOpacity) => setAttributes({ overlayOpacity })} />
 					<ColorPalette 
 						value={overlayColor} 
 						onChange={(overlayColor) => setAttributes({ overlayColor })} />
@@ -238,11 +310,26 @@ class GblxCta {
 			fixedBackground,
 			textAlignment,
 			textBrightness,
-			primaryCtaText,
-			secondaryCtaText,
-			showPrimaryCta,
-			showSecondaryCta
+			primaryCalloutText,
+			secondaryCalloutText,
+			showPrimaryCallout,
+			showSecondaryCallout,
+			primaryColor,
+			accentColor,
+			calloutBorder,
+			calloutBorderRadius,
+			calloutShowBackground,
+			calloutTransformText,
+			calloutMargin
 		} = attributes
+		const ctaStyle = {
+			color: accentColor,
+			background: calloutShowBackground ? primaryColor : 'transparent',
+			border: `${calloutBorder}px solid`,
+			borderRadius: `${calloutBorderRadius}px`,
+			textTransform: calloutTransformText ? 'uppercase': 'inherit',
+			margin: `0 ${calloutMargin > 0 ? calloutMargin / 2 : 0}px`
+		}
 		return (
 			<div>
 				{this.renderInspector(isSelected, attributes, setAttributes)}
@@ -288,23 +375,25 @@ class GblxCta {
 										placeholder={__('Content Area', 'gblx')}
 										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
 									<div>
-										{ showPrimaryCta 
+										{ showPrimaryCallout 
 												? <Button
+														style={ctaStyle}
 														className={styles['primary-cta']}>
 															<RichText 
 																placeholder={__('Action 1', 'gblx')}
-																value={primaryCtaText}
-																onChange={(primaryCtaText) => setAttributes({ primaryCtaText })} />
+																value={primaryCalloutText}
+																onChange={(primaryCalloutText) => setAttributes({ primaryCalloutText })} />
 													</Button>
 												: null }
 										{
-											showSecondaryCta 
+											showSecondaryCallout 
 												? <Button
+														style={ctaStyle}
 														className={styles['secondary-cta']}>
 															<RichText 
 																placeholder={__('Action 2', 'gblx')}
-																value={secondaryCtaText}
-																onChange={(secondaryCtaText) => setAttributes({ secondaryCtaText })} />
+																value={secondaryCalloutText}
+																onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })} />
 													</Button>
 												: null }
 									</div>
@@ -326,8 +415,8 @@ class GblxCta {
 			contentFontSize,
 			overlayColor,
 			overlayOpacity,
-			primaryCtaText,
-			secondaryCtaText
+			primaryCalloutText,
+			secondaryCalloutText
 		} = attributes
 		return (
 			<section 
@@ -341,11 +430,11 @@ class GblxCta {
 				<div>
 					<Button 
 						className="gblx-primary-cta">
-						{ primaryCtaText }
+						{ primaryCalloutText }
 					</Button>
 					<Button 
 						className="gblx-secondary-cta">
-						{ secondaryCtaText }
+						{ secondaryCalloutText }
 					</Button>
 				</div>
 			</section>
