@@ -17,6 +17,7 @@ import {
 	PanelBody,
 	RangeControl,
 	Toolbar,
+	Button,
 	IconButton,
 	FormToggle,
 	BaseControl
@@ -44,10 +45,6 @@ class GblxCta {
 		background: {
 			type: 'string'
 		},
-		textColor: {
-			type: 'string',
-			default: 'rgb(255,255,255)'
-		},
 		textAlignment: {
 			type: 'string'
 		},
@@ -72,6 +69,24 @@ class GblxCta {
 		},
 		fixedBackground: {
 			type: 'boolean'
+		},
+		showPrimaryCta: {
+			type: 'boolean'
+		},
+		showSecondaryCta: {
+			type: 'boolean'
+		},
+		primaryCtaText: {
+			source: 'children',
+			selector: '.gblx-primary-cta'
+		},
+		secondaryCtaText: {
+			source: 'children',
+			selector: '.gblx-secondary-cta'
+		},
+		textBrightness: {
+			type: 'integer',
+			default: 100
 		}
 	}
 	
@@ -80,27 +95,52 @@ class GblxCta {
 			return null
 		}
 		const {
-			textColor,
 			headerFontSize,
 			contentFontSize,
 			overlayOpacity,
 			overlayColor,
 			fixedBackground,
-			textAlignment
+			textAlignment,
+			textBrightness,
+			showPrimaryCta,
+			showSecondaryCta
 		} = attributes
 		return (
 			<InspectorControls>
 				<div>
-					<h2>{ __('Backround Settings', 'gblx')}</h2>
+					<h2>{ __('Display Settings', 'gblx')}</h2>
 					<BaseControl
+						id="gblx-primary-cta-toggle"
 						className="blocks-toggle-control"
-						label={__('Fixed Background', 'gblx')}>
+						label={__('Primary Callout', 'gblx')}>
 						<FormToggle 
-							checked={fixedBackground}
-							onChange={(e) => setAttributes({ fixedBackground: e.target.checked })}/>
+							id="gblx-primary-cta-toggle"
+							checked={showPrimaryCta}
+							onChange={(e) => setAttributes({ showPrimaryCta: e.target.checked })} />
+					</BaseControl>
+					<BaseControl
+						id="gblx-secondary-cta-toggle"
+						className="blocks-toggle-control"
+						label={__('Secondary Callout', 'gblx')}>
+							<FormToggle 
+								id="gblx-secondary-cta-toggle"
+								checked={showSecondaryCta}
+								onChange={(e) => setAttributes({ showSecondaryCta: e.target.checked })} />
 					</BaseControl>
 				</div>
-				<PanelBody title={__('Background Color', 'gblx')}>
+				<PanelBody title={__('Primary Color', 'gblx')}>
+					<ColorPalette 
+							value={overlayColor} 
+							onChange={(overlayColor) => setAttributes({ overlayColor })} />
+				</PanelBody>
+				<PanelBody title={__('Secondary Color', 'gblx')}>
+					<ColorPalette 
+							value={overlayColor} 
+							onChange={(overlayColor) => setAttributes({ overlayColor })} />
+				</PanelBody>
+				<PanelBody title={__('Callout Buttons', 'gblx')}>
+				</PanelBody>
+				<PanelBody title={__('Background Settings', 'gblx')}>
 					<RangeControl
 							min={0}
 							max={100}
@@ -110,11 +150,15 @@ class GblxCta {
 					<ColorPalette 
 						value={overlayColor} 
 						onChange={(overlayColor) => setAttributes({ overlayColor })} />
-				</PanelBody>
-				<PanelBody title={__('Text Color', 'gblx')}>
-					<ColorPalette 
-						value={textColor} 
-						onChange={(textColor) => setAttributes({ textColor })} />
+					<BaseControl
+						id="gblx-fixed-background-toggle"
+						className="blocks-toggle-control"
+						label={__('Fixed Background', 'gblx')}>
+						<FormToggle 
+							id="gblx-fixed-background-toggle"
+							checked={fixedBackground}
+							onChange={(e) => setAttributes({ fixedBackground: e.target.checked })}/>
+					</BaseControl>
 				</PanelBody>
 				<PanelBody title={__('Text Settings', 'gblx')}>
 					<RangeControl
@@ -131,6 +175,12 @@ class GblxCta {
 						label={__('Content Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
 						onChange={(contentFontSize) => setAttributes({ contentFontSize })} />
+					<RangeControl
+						min={0}
+						max={100}
+						value={textBrightness}
+						label={__('Brightness', 'gblx')}
+						onChange={(textBrightness) => setAttributes({ textBrightness })} />
 					<BaseControl
 						label={__('Text Alignment', 'gblx')}>
 						<AlignmentToolbar 
@@ -179,7 +229,6 @@ class GblxCta {
 	edit = ({ className, attributes, setAttributes, isSelected }) => {
 		const {
 			background,
-			textColor,
 			bodyContent,
 			headerText,
 			headerFontSize,
@@ -187,7 +236,12 @@ class GblxCta {
 			overlayColor,
 			overlayOpacity,
 			fixedBackground,
-			textAlignment
+			textAlignment,
+			textBrightness,
+			primaryCtaText,
+			secondaryCtaText,
+			showPrimaryCta,
+			showSecondaryCta
 		} = attributes
 		return (
 			<div>
@@ -203,7 +257,7 @@ class GblxCta {
 									[styles['has-right-alignment']]: textAlignment === 'right',
 								})} 
 								style={{ 
-									color: textColor,
+									color: `hsl(0, 0%, ${textBrightness}%)`,
 									backgroundImage: `url(${background})`, 
 								}}>
 								<div 
@@ -233,6 +287,27 @@ class GblxCta {
 										}}
 										placeholder={__('Content Area', 'gblx')}
 										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
+									<div>
+										{ showPrimaryCta 
+												? <Button
+														className={styles['primary-cta']}>
+															<RichText 
+																placeholder={__('Action 1', 'gblx')}
+																value={primaryCtaText}
+																onChange={(primaryCtaText) => setAttributes({ primaryCtaText })} />
+													</Button>
+												: null }
+										{
+											showSecondaryCta 
+												? <Button
+														className={styles['secondary-cta']}>
+															<RichText 
+																placeholder={__('Action 2', 'gblx')}
+																value={secondaryCtaText}
+																onChange={(secondaryCtaText) => setAttributes({ secondaryCtaText })} />
+													</Button>
+												: null }
+									</div>
 								</div>	
 							</section>
 				}
@@ -250,15 +325,29 @@ class GblxCta {
 			headerFontSize,
 			contentFontSize,
 			overlayColor,
-			overlayOpacity
+			overlayOpacity,
+			primaryCtaText,
+			secondaryCtaText
 		} = attributes
 		return (
 			<section 
 				style={{
 					backgroundImage: `url(${background})`
 				}}>
-				<h2>{ headerText }</h2>
-				<p>{ bodyContent }</p>
+				<div>
+					<h2>{ headerText }</h2>
+					<p>{ bodyContent }</p>
+				</div>
+				<div>
+					<Button 
+						className="gblx-primary-cta">
+						{ primaryCtaText }
+					</Button>
+					<Button 
+						className="gblx-secondary-cta">
+						{ secondaryCtaText }
+					</Button>
+				</div>
 			</section>
 		)
 	}

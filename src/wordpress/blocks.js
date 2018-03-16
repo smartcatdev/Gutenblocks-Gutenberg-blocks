@@ -9,5 +9,5 @@ export const {
   BlockControls,
   AlignmentToolbar,
   BlockAlignmentToolbar,
-  ImagePlaceholder
+  ImagePlaceholder  
 } = wp.blocks
