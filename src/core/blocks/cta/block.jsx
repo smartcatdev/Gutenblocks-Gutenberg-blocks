@@ -48,6 +48,9 @@ class GblxCta {
 			type: 'string',
 			default: 'rgb(255,255,255)'
 		},
+		textAlignment: {
+			type: 'string'
+		},
 		alignment: {
 			type: 'string',
 		},
@@ -82,7 +85,8 @@ class GblxCta {
 			contentFontSize,
 			overlayOpacity,
 			overlayColor,
-			fixedBackground
+			fixedBackground,
+			textAlignment
 		} = attributes
 		return (
 			<InspectorControls>
@@ -112,25 +116,27 @@ class GblxCta {
 						value={textColor} 
 						onChange={(textColor) => setAttributes({ textColor })} />
 				</PanelBody>
-				<PanelBody title={__('Heading Settings', 'gblx')}>
+				<PanelBody title={__('Text Settings', 'gblx')}>
 					<RangeControl
 						min={16}
 						max={32}
 						value={headerFontSize}
-						label={__('Font Size', 'gblx')}
+						label={__('Header Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
 						onChange={(headerFontSize) => setAttributes({ headerFontSize })} />
-				</PanelBody>
-				<PanelBody title={__('Content Settings', 'gblx')}>
-				<RangeControl
+					<RangeControl
 						min={12}
 						max={24}
 						value={contentFontSize}
-						label={__('Font Size', 'gblx')}
+						label={__('Content Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
 						onChange={(contentFontSize) => setAttributes({ contentFontSize })} />
-				</PanelBody>
-				<PanelBody title={__('Callout Settings', 'gblx')}>
+					<BaseControl
+						label={__('Text Alignment', 'gblx')}>
+						<AlignmentToolbar 
+							value={textAlignment} 
+							onChange={(textAlignment) => setAttributes({ textAlignment })} />
+					</BaseControl>
 				</PanelBody>
 			</InspectorControls>
 		)
@@ -141,7 +147,7 @@ class GblxCta {
 			return null
 		}
 		const {
-			alignment,
+			textAlignment,
 			background
 		} = attributes
 		return (
@@ -150,8 +156,8 @@ class GblxCta {
 					background 
 					? <div>
 							<AlignmentToolbar 
-								value={alignment} 
-								onChange={(alignment) => setAttributes({ alignment })} />
+								value={textAlignment} 
+								onChange={(textAlignment) => setAttributes({ textAlignment })} />
 							<Toolbar>
 								<MediaUpload
 									type="image"
@@ -174,14 +180,14 @@ class GblxCta {
 		const {
 			background,
 			textColor,
-			alignment,
 			bodyContent,
 			headerText,
 			headerFontSize,
 			contentFontSize,
 			overlayColor,
 			overlayOpacity,
-			fixedBackground
+			fixedBackground,
+			textAlignment
 		} = attributes
 		return (
 			<div>
@@ -193,8 +199,8 @@ class GblxCta {
 								className={classNames({
 									[styles['cta-background']]: true,
 									[styles['has-parallax']]: fixedBackground,
-									[styles['has-left-alignment']]: alignment === 'left',
-									[styles['has-right-alignment']]: alignment === 'right',
+									[styles['has-left-alignment']]: textAlignment === 'left',
+									[styles['has-right-alignment']]: textAlignment === 'right',
 								})} 
 								style={{ 
 									color: textColor,
@@ -206,26 +212,28 @@ class GblxCta {
 										opacity: overlayOpacity > 0 ? overlayOpacity / 100 : 0
 									}} 
 									className={styles['overlay']} />
-								<RichText 
-									tagName="h2"
-									value={headerText}
-									className={styles.header}
-									style={{ 
-										fontSize: `${headerFontSize}px`,
-										lineHeight: `${headerFontSize}px` 
-									}}
-									placeholder={__('Heading Text', 'gblx')}
-									onChange={(headerText) => setAttributes({ headerText })} />
-								<RichText 
-									tagName="p"
-									value={bodyContent}
-									className={styles.content}
-									style={{ 
-										fontSize: `${contentFontSize}px`,
-										lineHeight: `${contentFontSize}px` 
-									}}
-									placeholder={__('Content Area', 'gblx')}
-									onChange={(bodyContent) => setAttributes({ bodyContent })} />		
+								<div className={styles.inner}>
+									<RichText 
+										tagName="h2"
+										value={headerText}
+										className={styles.header}
+										style={{ 
+											fontSize: `${headerFontSize}px`,
+											lineHeight: `${headerFontSize}px`, 
+										}}
+										placeholder={__('Heading Text', 'gblx')}
+										onChange={(headerText) => setAttributes({ headerText })} />
+									<RichText 
+										tagName="p"
+										value={bodyContent}
+										className={styles.content}
+										style={{ 
+											fontSize: `${contentFontSize}px`,
+											lineHeight: `${contentFontSize}px` 
+										}}
+										placeholder={__('Content Area', 'gblx')}
+										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
+								</div>	
 							</section>
 				}
 			</div>

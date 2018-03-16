@@ -8,14 +8,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  &.has-parallax {
+    background-attachment: fixed;
+  }
   &.has-left-alignment {
     align-items: flex-start;
+    .header, .content {
+      text-align: left;
+    }
   }
   &.has-right-alignment {
     align-items: flex-end;
-  }
-  &.has-parallax {
-    background-attachment: fixed;
+    .header, .content {
+      text-align: right;
+    }
   }
   .overlay {
     position: absolute;
