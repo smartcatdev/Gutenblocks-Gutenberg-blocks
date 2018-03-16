@@ -5,5 +5,7 @@ export const {
   Placeholder,
   FormFileUpload,
   Button,
-  RangeControl
+  IconButton,
+  RangeControl,
+  Toolbar
 } = wp.components

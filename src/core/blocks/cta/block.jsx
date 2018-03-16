@@ -9,11 +9,15 @@ import {
 	InspectorControls,
 	registerBlockType,
 	BlockControls,
-  AlignmentToolbar
+	AlignmentToolbar,
+	BlockAlignmentToolbar,
+	MediaUpload
 } from '@wordpress/blocks'
 import {
 	PanelBody,
-	RangeControl
+	RangeControl,
+	Toolbar,
+	IconButton
 } from '@wordpress/components'
 import styles from './block.scss'
 
@@ -106,13 +110,27 @@ class GblxCta {
 		} = attributes
 		return (
 			<BlockControls>
-				{ background 
-					? <AlignmentToolbar 
-							value={alignment} 
-							onChange={(alignment) => setAttributes({ alignment })} />
+				{
+					background 
+					? <div>
+							<AlignmentToolbar 
+								value={alignment} 
+								onChange={(alignment) => setAttributes({ alignment })} />
+							<Toolbar>
+								<MediaUpload
+									type="image"
+									render={({ open }) => (
+										<IconButton 
+											icon="format-image" 
+											onClick={open}
+											tooltip={__('Edit Image', 'gblx')} />
+									)} 
+									onSelect={(media) => setAttributes({ background: media.url })} />
+							</Toolbar>
+						</div>	
 					: null
 				}
-			</BlockControls>
+			</BlockControls> 
 		)
 	}
 
