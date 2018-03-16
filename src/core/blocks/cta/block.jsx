@@ -31,18 +31,16 @@ class GblxCta {
 	icon = 'megaphone'
 	category = 'common'
 	attributes = {
-		title: {
+		headerText: {
 			source: 'children',
 			selector: 'h2'
 		},
-		content: {
+		bodyContent: {
 			source: 'children',
 			selector: 'p'
 		},
 		background: {
-			source: 'attribute',
-			selector: 'img',
-			attributes: 'src'
+			type: 'string'
 		},
 		textColor: {
 			type: 'string'
@@ -158,8 +156,8 @@ class GblxCta {
 			background,
 			textColor,
 			alignment,
-			content,
-			header,
+			bodyContent,
+			headerText,
 			headerFontSize,
 			contentFontSize,
 			overlayColor,
@@ -189,24 +187,24 @@ class GblxCta {
 									className={styles['overlay']} />
 								<RichText 
 									tagName="h2"
-									value={header}
+									value={headerText}
 									className={styles.header}
 									style={{ 
 										fontSize: `${headerFontSize}px`,
 										lineHeight: `${headerFontSize}px` 
 									}}
 									placeholder={__('Heading Text', 'gblx')}
-									onChange={(title) => setAttributes({ title })} />
+									onChange={(headerText) => setAttributes({ headerText })} />
 								<RichText 
 									tagName="p"
-									value={content}
+									value={bodyContent}
 									className={styles.content}
 									style={{ 
 										fontSize: `${contentFontSize}px`,
 										lineHeight: `${contentFontSize}px` 
 									}}
 									placeholder={__('Content Area', 'gblx')}
-									onChange={(content) => setAttributes({ content })} />		
+									onChange={(bodyContent) => setAttributes({ bodyContent })} />		
 							</section>
 				}
 			</div>
@@ -214,12 +212,25 @@ class GblxCta {
 	}
 
 	save = ({ attributes }) => {
+		const {
+			background,
+			textColor,
+			alignment,
+			bodyContent,
+			headerText,
+			headerFontSize,
+			contentFontSize,
+			overlayColor,
+			overlayOpacity
+		} = attributes
 		return (
-			<p	
-				className="test"
-				style={{ background: attributes.background }} >
-				{ attributes.content }
-			</p> 
+			<section 
+				style={{
+					backgroundImage: `url(${background})`
+				}}>
+				<h2>{ headerText }</h2>
+				<p>{ bodyContent }</p>
+			</section>
 		)
 	}
 
