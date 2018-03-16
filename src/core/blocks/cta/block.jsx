@@ -17,7 +17,9 @@ import {
 	PanelBody,
 	RangeControl,
 	Toolbar,
-	IconButton
+	IconButton,
+	FormToggle,
+	BaseControl
 } from '@wordpress/components'
 import styles from './block.scss'
 
@@ -43,22 +45,30 @@ class GblxCta {
 			type: 'string'
 		},
 		textColor: {
-			type: 'string'
+			type: 'string',
+			default: 'rgb(255,255,255)'
 		},
 		alignment: {
 			type: 'string',
 		},
 		headerFontSize: {
-			type: 'integer'
+			type: 'integer',
+			default: 32
 		},
 		contentFontSize: {
-			type: 'integer'
+			type: 'integer',
+			default: 24
 		},
 		overlayOpacity: {
-			type: 'integer'
+			type: 'integer',
+			default: 0
 		},
 		overlayColor: {
-			type: 'string'
+			type: 'string',
+			default: 'rgb(49,49,49)'
+		},
+		fixedBackground: {
+			type: 'boolean'
 		}
 	}
 	
@@ -71,11 +81,22 @@ class GblxCta {
 			headerFontSize,
 			contentFontSize,
 			overlayOpacity,
-			overlayColor
+			overlayColor,
+			fixedBackground
 		} = attributes
 		return (
 			<InspectorControls>
-				<PanelBody title={__('Background Settings', 'gblx')}>
+				<div>
+					<h2>{ __('Backround Settings', 'gblx')}</h2>
+					<BaseControl
+						className="blocks-toggle-control"
+						label={__('Fixed Background', 'gblx')}>
+						<FormToggle 
+							checked={fixedBackground}
+							onChange={(e) => setAttributes({ fixedBackground: e.target.checked })}/>
+					</BaseControl>
+				</div>
+				<PanelBody title={__('Background Color', 'gblx')}>
 					<RangeControl
 							min={0}
 							max={100}
@@ -95,7 +116,6 @@ class GblxCta {
 					<RangeControl
 						min={16}
 						max={32}
-						allowReset
 						value={headerFontSize}
 						label={__('Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
@@ -105,7 +125,6 @@ class GblxCta {
 				<RangeControl
 						min={12}
 						max={24}
-						allowReset
 						value={contentFontSize}
 						label={__('Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
@@ -161,7 +180,8 @@ class GblxCta {
 			headerFontSize,
 			contentFontSize,
 			overlayColor,
-			overlayOpacity
+			overlayOpacity,
+			fixedBackground
 		} = attributes
 		return (
 			<div>
@@ -172,6 +192,7 @@ class GblxCta {
 						: <section 
 								className={classNames({
 									[styles['cta-background']]: true,
+									[styles['has-parallax']]: fixedBackground,
 									[styles['has-left-alignment']]: alignment === 'left',
 									[styles['has-right-alignment']]: alignment === 'right',
 								})} 

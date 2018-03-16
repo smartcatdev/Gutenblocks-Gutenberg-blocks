@@ -7,5 +7,7 @@ export const {
   Button,
   IconButton,
   RangeControl,
-  Toolbar
+  Toolbar,
+  FormToggle,
+  BaseControl
 } = wp.components

@@ -8,12 +8,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff;
   &.has-left-alignment {
     align-items: flex-start;
   }
   &.has-right-alignment {
     align-items: flex-end;
+  }
+  &.has-parallax {
+    background-attachment: fixed;
   }
   .overlay {
     position: absolute;
@@ -24,17 +26,7 @@
   }
 }
 
-.header {
-  font-size: 32px;
-  z-index: 1;
-  max-width: 636px;
-  padding: 5px;
-  text-align: center;
-  color: inherit;
-}
-
-.content {
-  font-size: 24px;
+.header, .content  {
   z-index: 1;
   max-width: 636px;
   padding: 5px;
