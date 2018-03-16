@@ -1,9 +1,11 @@
+import classNames from 'classnames'
 import { 
 	__ 
 } from '@wordpress/i18n'
 import { 
 	ColorPalette,
 	RichText,
+	ImagePlaceholder,
 	InspectorControls,
 	registerBlockType,
 	BlockControls,
@@ -13,9 +15,6 @@ import {
 	PanelBody,
 	RangeControl
 } from '@wordpress/components'
-import {
-	BackgroundImage 
-} from '@gblx/components'
 import styles from './block.scss'
 
 /**
@@ -91,6 +90,8 @@ class GblxCta {
 						beforeIcon="editor-textcolor"
 						onChange={(contentFontSize) => setAttributes({ contentFontSize })} />
 				</PanelBody>
+				<PanelBody title={__('Callout Settings', 'gblx')}>
+				</PanelBody>
 			</InspectorControls>
 		)
 	}
@@ -129,28 +130,40 @@ class GblxCta {
 			<div>
 				{this.renderInspector(isSelected, attributes, setAttributes)}
 				{this.renderToolbar(isSelected, attributes, setAttributes)}
-				<BackgroundImage 
-					image={background}
-					style={{ 
-						textAlign: alignment,
-						color: textColor
-					}}
-					onSelect={(background) => setAttributes({ background })}>
-						<div style={{ fontSize: headerFontSize }}>
+				{ !background 
+						?	<ImagePlaceholder onSelectImage={(media) => setAttributes({ background: media.url })} />
+						: <section 
+								className={classNames({
+									[styles['cta-background']]: true,
+									[styles['has-left-alignment']]: alignment === 'left',
+									[styles['has-right-alignment']]: alignment === 'right',
+								})} 
+								style={{ 
+									color: textColor,
+									backgroundImage: `url(${background})`, 
+								}}>
 							<RichText 
 								tagName="h2"
 								value={header}
 								className={styles.header}
+								style={{ 
+									fontSize: headerFontSize,
+									lineHeight: `${headerFontSize}px` 
+								}}
+								placeholder={__('Heading Text', 'gblx')}
 								onChange={(title) => setAttributes({ title })} />
-						</div>
-						<div style={{ fontSize: contentFontSize }}>
 							<RichText 
 								tagName="p"
 								value={content}
 								className={styles.content}
+								style={{ 
+									fontSize: contentFontSize,
+									lineHeight: `${contentFontSize}px` 
+								}}
+								placeholder={__('Content Area', 'gblx')}
 								onChange={(content) => setAttributes({ content })} />
-						</div>
-				</BackgroundImage>
+							</section>
+				}
 			</div>
 		)
 	}

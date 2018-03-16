@@ -1,7 +1,36 @@
-h2.header {
+.cta-background {
+  position: relative;
+  background-size: cover;
+  height: 430px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  &.has-left-alignment {
+    align-items: flex-start;
+  }
+  &.has-right-alignment {
+    align-items: flex-end;
+  }
+}
+
+.header {
+  font-size: 24pt;
+  z-index: 1;
+  max-width: 636px;
+  padding: 14px;
+  text-align: center;
   color: inherit;
 }
 
-p.content {
-  font-size: inherit;
+.content {
+  font-size: 24pt;
+  z-index: 1;
+  max-width: 636px;
+  padding: 14px;
+  text-align: center;
+  color: inherit;
 }

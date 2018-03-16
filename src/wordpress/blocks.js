@@ -7,5 +7,6 @@ export const {
   registerBlockType,
   MediaUpload,
   BlockControls,
-  AlignmentToolbar
+  AlignmentToolbar,
+  ImagePlaceholder
 } = wp.blocks
