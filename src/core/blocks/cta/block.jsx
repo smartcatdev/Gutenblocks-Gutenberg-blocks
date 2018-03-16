@@ -55,6 +55,12 @@ class GblxCta {
 		},
 		contentFontSize: {
 			type: 'integer'
+		},
+		overlayOpacity: {
+			type: 'integer'
+		},
+		overlayColor: {
+			type: 'string'
 		}
 	}
 	
@@ -65,10 +71,23 @@ class GblxCta {
 		const {
 			textColor,
 			headerFontSize,
-			contentFontSize
+			contentFontSize,
+			overlayOpacity,
+			overlayColor
 		} = attributes
 		return (
 			<InspectorControls>
+				<PanelBody title={__('Background Settings', 'gblx')}>
+					<RangeControl
+							min={0}
+							max={100}
+							value={overlayOpacity}
+							label={__('Overlay Opacity', 'gblx')}
+							onChange={(overlayOpacity) => setAttributes({ overlayOpacity })} />
+					<ColorPalette 
+						value={overlayColor} 
+						onChange={(overlayColor) => setAttributes({ overlayColor })} />
+				</PanelBody>
 				<PanelBody title={__('Text Color', 'gblx')}>
 					<ColorPalette 
 						value={textColor} 
@@ -142,7 +161,9 @@ class GblxCta {
 			content,
 			header,
 			headerFontSize,
-			contentFontSize
+			contentFontSize,
+			overlayColor,
+			overlayOpacity
 		} = attributes
 		return (
 			<div>
@@ -160,26 +181,32 @@ class GblxCta {
 									color: textColor,
 									backgroundImage: `url(${background})`, 
 								}}>
-							<RichText 
-								tagName="h2"
-								value={header}
-								className={styles.header}
-								style={{ 
-									fontSize: headerFontSize,
-									lineHeight: `${headerFontSize}px` 
-								}}
-								placeholder={__('Heading Text', 'gblx')}
-								onChange={(title) => setAttributes({ title })} />
-							<RichText 
-								tagName="p"
-								value={content}
-								className={styles.content}
-								style={{ 
-									fontSize: contentFontSize,
-									lineHeight: `${contentFontSize}px` 
-								}}
-								placeholder={__('Content Area', 'gblx')}
-								onChange={(content) => setAttributes({ content })} />
+								<div 
+									style={{ 
+										background: overlayColor,
+										opacity: overlayOpacity > 0 ? overlayOpacity / 100 : 0
+									}} 
+									className={styles['overlay']} />
+								<RichText 
+									tagName="h2"
+									value={header}
+									className={styles.header}
+									style={{ 
+										fontSize: `${headerFontSize}px`,
+										lineHeight: `${headerFontSize}px` 
+									}}
+									placeholder={__('Heading Text', 'gblx')}
+									onChange={(title) => setAttributes({ title })} />
+								<RichText 
+									tagName="p"
+									value={content}
+									className={styles.content}
+									style={{ 
+										fontSize: `${contentFontSize}px`,
+										lineHeight: `${contentFontSize}px` 
+									}}
+									placeholder={__('Content Area', 'gblx')}
+									onChange={(content) => setAttributes({ content })} />		
 							</section>
 				}
 			</div>
