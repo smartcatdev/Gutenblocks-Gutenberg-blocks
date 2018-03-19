@@ -5,13 +5,16 @@ import {
 import { 
 	ColorPalette,
 	RichText,
+	PlainText,
 	ImagePlaceholder,
 	InspectorControls,
 	registerBlockType,
 	BlockControls,
 	AlignmentToolbar,
 	BlockAlignmentToolbar,
-	MediaUpload
+	MediaUpload,
+	UrlInput,
+	UrlInputButton
 } from '@wordpress/blocks'
 import {
 	PanelBody,
@@ -22,6 +25,15 @@ import {
 	FormToggle,
 	BaseControl
 } from '@wordpress/components'
+import {
+	Component
+} from '@wordpress/element'
+import {
+	relativeRange 
+} from '@gblx/utils/math'
+import {
+	LinkButton
+} from '@gblx/components'
 import styles from './block.scss'
 
 /**
@@ -29,7 +41,7 @@ import styles from './block.scss'
  * 
  * @since 1.0.0
  */
-class GblxCta {
+class GblxCta extends Component {
 	title = __('GBLX CTA', 'gblx')
 	icon = 'megaphone'
 	category = 'common'
@@ -48,8 +60,9 @@ class GblxCta {
 		textAlignment: {
 			type: 'string'
 		},
-		alignment: {
-			type: 'string',
+		verticalAlignment: {
+			type: 'integer',
+			default: 50
 		},
 		headerFontSize: {
 			type: 'integer',
@@ -70,9 +83,6 @@ class GblxCta {
 		fixedBackground: {
 			type: 'boolean'
 		},
-		showPrimaryCallout: {
-			type: 'boolean'
-		},
 		showSecondaryCallout: {
 			type: 'boolean'
 		},
@@ -83,6 +93,12 @@ class GblxCta {
 		secondaryCalloutText: {
 			source: 'children',
 			selector: '.gblx-secondary-cta'
+		},
+		primaryCalloutURL: {
+			type: 'text' 
+		},
+		secondaryCalloutURL: {
+			type: 'text'
 		},
 		textBrightness: {
 			type: 'integer',
@@ -111,10 +127,12 @@ class GblxCta {
 			default: true
 		},
 		calloutMargin: {
-			type: 'integer'
+			type: 'integer',
+			default: 5
 		},
 		calloutPadding: {
-			type: 'integer'
+			type: 'integer',
+			default: 5
 		}
 	}
 	
@@ -130,7 +148,6 @@ class GblxCta {
 			fixedBackground,
 			textAlignment,
 			textBrightness,
-			showPrimaryCallout,
 			showSecondaryCallout,
 			primaryColor,
 			accentColor,
@@ -139,30 +156,52 @@ class GblxCta {
 			calloutBorder,
 			calloutBorderRadius,
 			calloutShowBackground,
-			calloutTransformText
+			calloutTransformText,
+			verticalAlignment,
+			primaryCalloutURL,
+			secondaryCalloutURL
 		} = attributes
 		return (
 			<InspectorControls>
 				<div>
 					<h2>{ __('Display Settings', 'gblx')}</h2>
 					<BaseControl
-						id="gblx-primary-cta-toggle"
-						className="blocks-toggle-control"
-						label={__('Primary Callout', 'gblx')}>
-						<FormToggle 
-							id="gblx-primary-cta-toggle"
-							checked={showPrimaryCallout}
-							onChange={(e) => setAttributes({ showPrimaryCallout: e.target.checked })} />
-					</BaseControl>
-					<BaseControl
 						id="gblx-secondary-cta-toggle"
 						className="blocks-toggle-control"
 						label={__('Secondary Callout', 'gblx')}>
-							<FormToggle 
-								id="gblx-secondary-cta-toggle"
-								checked={showSecondaryCallout}
-								onChange={(e) => setAttributes({ showSecondaryCallout: e.target.checked })} />
+						<FormToggle 
+							id="gblx-secondary-cta-toggle"
+							checked={showSecondaryCallout}
+							onChange={(e) => setAttributes({ showSecondaryCallout: e.target.checked })} />
 					</BaseControl>
+					<RangeControl
+						min={0}
+						max={100}
+						value={verticalAlignment}
+						label={__('Vertical Alignment', 'gblx')}
+						onChange={(verticalAlignment) => setAttributes({ verticalAlignment })} />
+					<div className={styles.links}>
+						<BaseControl
+							id="gblx-cta-primary-link"
+							label={__('Primary Callout Link', 'gblx')}>
+							<input
+								type="url"
+								id="gblx-cta-primary-link"
+								value={primaryCalloutURL}
+								onChange={(e) => setAttributes({ primaryCalloutURL: e.target.value })} />
+						</BaseControl>
+						{ showSecondaryCallout 
+						? <BaseControl
+								id="gblx-cta-secondary-link"
+								label={__('Secondary Callout Link', 'gblx')}>
+								<input
+									type="url"
+									id="gblx-cta-secondary-link"
+									value={secondaryCalloutURL}
+									onChange={(e) => setAttributes({ secondaryCalloutURL: e.target.value })} />
+							</BaseControl>
+						: null }
+					</div>
 				</div>
 				<PanelBody title={__('Primary Color', 'gblx')}>
 					<ColorPalette 
@@ -205,12 +244,21 @@ class GblxCta {
 						value={calloutBorderRadius}
 						label={__('Border Radius', 'gblx')}
 						onChange={(calloutBorderRadius) => setAttributes({ calloutBorderRadius })} />
+					{ showSecondaryCallout 
+							? <RangeControl
+									min={5}
+									max={30}
+									value={calloutMargin}
+									label={__('Margin', 'gblx')}
+									onChange={(calloutMargin) => setAttributes({ calloutMargin })} />
+							: null
+					}
 					<RangeControl
 						min={5}
 						max={30}
-						value={calloutMargin}
-						label={__('Margin', 'gblx')}
-						onChange={(calloutMargin) => setAttributes({ calloutMargin })} />
+						value={calloutPadding}
+						label={__('Padding', 'gblx')}
+						onChange={(calloutPadding) => setAttributes({ calloutPadding })} />
 				</PanelBody>
 				<PanelBody title={__('Background Settings', 'gblx')}>
 					<RangeControl
@@ -312,7 +360,6 @@ class GblxCta {
 			textBrightness,
 			primaryCalloutText,
 			secondaryCalloutText,
-			showPrimaryCallout,
 			showSecondaryCallout,
 			primaryColor,
 			accentColor,
@@ -320,16 +367,20 @@ class GblxCta {
 			calloutBorderRadius,
 			calloutShowBackground,
 			calloutTransformText,
-			calloutMargin
+			calloutMargin,
+			calloutPadding,
+			verticalAlignment,
+			primaryCalloutURL
 		} = attributes
 		const ctaStyle = {
 			color: accentColor,
 			background: calloutShowBackground ? primaryColor : 'transparent',
-			border: `${calloutBorder}px solid`,
+			border: `${calloutBorder}px solid ${accentColor}`,
 			borderRadius: `${calloutBorderRadius}px`,
 			textTransform: calloutTransformText ? 'uppercase': 'inherit',
-			margin: `0 ${calloutMargin > 0 ? calloutMargin / 2 : 0}px`
+			padding: `0 ${calloutPadding}px`
 		}
+		const margin = `${calloutMargin > 0 ? calloutMargin / 2 : 0}px`;
 		return (
 			<div>
 				{this.renderInspector(isSelected, attributes, setAttributes)}
@@ -353,7 +404,11 @@ class GblxCta {
 										opacity: overlayOpacity > 0 ? overlayOpacity / 100 : 0
 									}} 
 									className={styles['overlay']} />
-								<div className={styles.inner}>
+								<div 
+									className={styles.inner}
+									style={{
+										top: `${-(relativeRange(-100, 100, verticalAlignment))}px`
+									}}>
 									<RichText 
 										tagName="h2"
 										value={headerText}
@@ -374,27 +429,21 @@ class GblxCta {
 										}}
 										placeholder={__('Content Area', 'gblx')}
 										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
-									<div>
-										{ showPrimaryCallout 
-												? <Button
-														style={ctaStyle}
-														className={styles['primary-cta']}>
-															<RichText 
-																placeholder={__('Action 1', 'gblx')}
-																value={primaryCalloutText}
-																onChange={(primaryCalloutText) => setAttributes({ primaryCalloutText })} />
-													</Button>
-												: null }
+									<div className={styles.callouts}>
+										<LinkButton
+											value={primaryCalloutText}
+											className={styles['primary-cta']}
+											placeholder={__('Action 1', 'gblx')}
+											style={{ ...ctaStyle, marginRight: margin }}
+											onChange={(primaryCalloutText) => setAttributes({ primaryCalloutText })} />
 										{
 											showSecondaryCallout 
-												? <Button
-														style={ctaStyle}
-														className={styles['secondary-cta']}>
-															<RichText 
-																placeholder={__('Action 2', 'gblx')}
-																value={secondaryCalloutText}
-																onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })} />
-													</Button>
+												? <LinkButton
+														value={secondaryCalloutText}
+														className={styles['secondary-cta']}
+														placeholder={__('Action 2', 'gblx')}
+														style={{ ...ctaStyle, marginLeft: margin }}
+														onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })}	/>
 												: null }
 									</div>
 								</div>	

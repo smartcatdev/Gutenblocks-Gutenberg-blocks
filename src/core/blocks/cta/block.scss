@@ -13,13 +13,13 @@
   }
   &.has-left-alignment {
     align-items: flex-start;
-    .header, .content {
+    .header, .content, .callouts {
       text-align: left;
     }
   }
   &.has-right-alignment {
     align-items: flex-end;
-    .header, .content {
+    .header, .content, .callouts {
       text-align: right;
     }
   }
@@ -29,6 +29,15 @@
     left: 0;
     right: 0;
     bottom: 0;
+  }
+  .inner {
+    z-index: 1;
+    position: relative;
+    top: 100px;
+  }
+  .callouts {
+    text-align: center;
+    width: 100%;
   }
 }
 
@@ -45,3 +54,10 @@
   height: 50px;
 }
 
+.links input[type=url] {
+  width: 100%;
+  margin: 1px;
+  padding: 3px 5px;
+  height: 28px;
+  line-height: 1;
+}

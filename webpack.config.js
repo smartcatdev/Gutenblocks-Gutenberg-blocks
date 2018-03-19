@@ -6,7 +6,7 @@ const getBlocks = (path) => {
   fs.readdirSync(path)
     .forEach(file => {
       if (fs.statSync(`${path}/${file}`).isDirectory()) {
-        entries[`${file}.editor`] = `${path}/${file}/index.js`
+        entries[`${file}.editor`] = `${path}/${file}/block.js`
         entries[`${file}.site`] = `${path}/${file}/pkg.js`
       }
     })

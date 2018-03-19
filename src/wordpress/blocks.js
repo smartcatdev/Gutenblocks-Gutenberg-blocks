@@ -9,5 +9,7 @@ export const {
   BlockControls,
   AlignmentToolbar,
   BlockAlignmentToolbar,
-  ImagePlaceholder  
+  ImagePlaceholder,
+  UrlInput,
+  UrlInputButton  
 } = wp.blocks
