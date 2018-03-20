@@ -6,7 +6,8 @@
   "author": "Eric Green <ericgreen.developer@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch",
+    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js",
+    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js",
     "clean": "rm -rf ./build/*"
   },
   "devDependencies": {
@@ -17,19 +18,22 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "classnames": "^2.2.5",
     "css-loader": "^0.28.10",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
+    "mini-css-extract-plugin": "^0.2.0",
     "node-sass": "^4.7.2",
-    "prop-types": "^15.6.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "styled-jsx": "^2.2.6",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.11"
+    "webpack-cli": "^2.0.11",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0"
   }
 }

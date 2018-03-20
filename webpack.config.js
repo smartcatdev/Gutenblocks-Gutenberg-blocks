@@ -15,7 +15,6 @@ const getBlocks = (path) => {
 
 module.exports = {
   entry: getBlocks(`${__dirname}/src/core/blocks`),
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -30,29 +29,7 @@ module.exports = {
             'babel-plugin-transform-object-rest-spread'
           ]
         }
-      },
-      {
-        test: /\.scss$/,
-        // test: /^((?!\.?global).)*scss$/,
-        use: [
-          { loader: 'style-loader' }, 
-          {
-            loader: 'css-loader',
-            // options: {
-            //   module: true
-            // }
-          }, 
-          { loader: 'sass-loader' }
-        ]
-      },
-      // {
-      //   test: /\.?global.scss$/,
-      //   use: [
-      //     { loader: 'style-loader' }, 
-      //     { loader: 'css-loader' }, 
-      //     { loader: 'sass-loader' }
-      //   ]
-      // }
+      }
     ]
   },
   resolve: {
