@@ -31,26 +31,27 @@ module.exports = {
         }
       },
       {
-        test: /^((?!\.?global).)*scss$/,
+        test: /\.scss$/,
+        // test: /^((?!\.?global).)*scss$/,
         use: [
           { loader: 'style-loader' }, 
           {
             loader: 'css-loader',
-            options: {
-              module: true
-            }
+            // options: {
+            //   module: true
+            // }
           }, 
           { loader: 'sass-loader' }
         ]
       },
-      {
-        test: /\.?global.scss$/,
-        use: [
-          { loader: 'style-loader' }, 
-          { loader: 'css-loader' }, 
-          { loader: 'sass-loader' }
-        ]
-      }
+      // {
+      //   test: /\.?global.scss$/,
+      //   use: [
+      //     { loader: 'style-loader' }, 
+      //     { loader: 'css-loader' }, 
+      //     { loader: 'sass-loader' }
+      //   ]
+      // }
     ]
   },
   resolve: {

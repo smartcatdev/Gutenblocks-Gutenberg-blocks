@@ -12,9 +12,7 @@ import {
 	BlockControls,
 	AlignmentToolbar,
 	BlockAlignmentToolbar,
-	MediaUpload,
-	UrlInput,
-	UrlInputButton
+	MediaUpload
 } from '@wordpress/blocks'
 import {
 	PanelBody,
@@ -32,9 +30,13 @@ import {
 	relativeRange 
 } from '@gblx/utils/math'
 import {
-	LinkButton
+	EditableButton
 } from '@gblx/components'
-import styles from './block.scss'
+import Wrapper from './wrapper'
+import Header from './header'
+import Content from './content'
+import Callout from './callout'
+import './block.scss'
 
 /**
  * GBLX Call To Action Module.
@@ -88,11 +90,11 @@ class GblxCta extends Component {
 		},
 		primaryCalloutText: {
 			source: 'children',
-			selector: '.gblx-primary-cta'
+			selector: '.primary-cta'
 		},
 		secondaryCalloutText: {
 			source: 'children',
-			selector: '.gblx-secondary-cta'
+			selector: '.secondary-cta'
 		},
 		primaryCalloutURL: {
 			type: 'text' 
@@ -133,6 +135,10 @@ class GblxCta extends Component {
 		calloutPadding: {
 			type: 'integer',
 			default: 5
+		},
+		calloutFontSize: {
+			type: 'integer',
+			default: 18
 		}
 	}
 	
@@ -151,6 +157,7 @@ class GblxCta extends Component {
 			showSecondaryCallout,
 			primaryColor,
 			accentColor,
+			calloutFontSize,
 			calloutMargin,
 			calloutPadding,
 			calloutBorder,
@@ -180,7 +187,7 @@ class GblxCta extends Component {
 						value={verticalAlignment}
 						label={__('Vertical Alignment', 'gblx')}
 						onChange={(verticalAlignment) => setAttributes({ verticalAlignment })} />
-					<div className={styles.links}>
+					<div className="links">
 						<BaseControl
 							id="gblx-cta-primary-link"
 							label={__('Primary Callout Link', 'gblx')}>
@@ -259,6 +266,13 @@ class GblxCta extends Component {
 						value={calloutPadding}
 						label={__('Padding', 'gblx')}
 						onChange={(calloutPadding) => setAttributes({ calloutPadding })} />
+					<RangeControl
+						min={14}
+						max={24}
+						value={calloutFontSize}
+						beforeIcon="editor-textcolor"
+						label={__('Font Size', 'gblx')}
+						onChange={(calloutFontSize) => setAttributes({ calloutFontSize })} />
 				</PanelBody>
 				<PanelBody title={__('Background Settings', 'gblx')}>
 					<RangeControl
@@ -322,8 +336,7 @@ class GblxCta extends Component {
 		} = attributes
 		return (
 			<BlockControls>
-				{
-					background 
+				{ background 
 					? <div>
 							<AlignmentToolbar 
 								value={textAlignment} 
@@ -363,23 +376,15 @@ class GblxCta extends Component {
 			showSecondaryCallout,
 			primaryColor,
 			accentColor,
+			calloutFontSize,
 			calloutBorder,
 			calloutBorderRadius,
 			calloutShowBackground,
 			calloutTransformText,
 			calloutMargin,
 			calloutPadding,
-			verticalAlignment,
-			primaryCalloutURL
+			verticalAlignment
 		} = attributes
-		const ctaStyle = {
-			color: accentColor,
-			background: calloutShowBackground ? primaryColor : 'transparent',
-			border: `${calloutBorder}px solid ${accentColor}`,
-			borderRadius: `${calloutBorderRadius}px`,
-			textTransform: calloutTransformText ? 'uppercase': 'inherit',
-			padding: `0 ${calloutPadding}px`
-		}
 		const margin = `${calloutMargin > 0 ? calloutMargin / 2 : 0}px`;
 		return (
 			<div>
@@ -387,67 +392,59 @@ class GblxCta extends Component {
 				{this.renderToolbar(isSelected, attributes, setAttributes)}
 				{ !background 
 						?	<ImagePlaceholder onSelectImage={(media) => setAttributes({ background: media.url })} />
-						: <section 
-								className={classNames({
-									[styles['cta-background']]: true,
-									[styles['has-parallax']]: fixedBackground,
-									[styles['has-left-alignment']]: textAlignment === 'left',
-									[styles['has-right-alignment']]: textAlignment === 'right',
-								})} 
-								style={{ 
-									color: `hsl(0, 0%, ${textBrightness}%)`,
-									backgroundImage: `url(${background})`, 
-								}}>
-								<div 
-									style={{ 
-										background: overlayColor,
-										opacity: overlayOpacity > 0 ? overlayOpacity / 100 : 0
-									}} 
-									className={styles['overlay']} />
-								<div 
-									className={styles.inner}
-									style={{
-										top: `${-(relativeRange(-100, 100, verticalAlignment))}px`
-									}}>
+						: <Wrapper {...attributes}>
+								<Header fontSize={headerFontSize}>
 									<RichText 
 										tagName="h2"
 										value={headerText}
-										className={styles.header}
-										style={{ 
-											fontSize: `${headerFontSize}px`,
-											lineHeight: `${headerFontSize}px`, 
-										}}
 										placeholder={__('Heading Text', 'gblx')}
 										onChange={(headerText) => setAttributes({ headerText })} />
+								</Header>
+								<Content fontSize={contentFontSize}>
 									<RichText 
 										tagName="p"
 										value={bodyContent}
-										className={styles.content}
-										style={{ 
-											fontSize: `${contentFontSize}px`,
-											lineHeight: `${contentFontSize}px` 
-										}}
 										placeholder={__('Content Area', 'gblx')}
 										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
-									<div className={styles.callouts}>
-										<LinkButton
+								</Content>
+								<div className="callouts">
+									<Callout
+										{...attributes}
+										border={calloutBorder}
+										color={primaryColor}
+										padding={calloutPadding}
+										margin={calloutMargin}
+										fontSize={calloutFontSize}
+										borderRadius={calloutBorderRadius}
+										transformText={calloutTransformText}
+										showBackground={calloutShowBackground}>
+										<EditableButton
+											className="primary-cta"
 											value={primaryCalloutText}
-											className={styles['primary-cta']}
 											placeholder={__('Action 1', 'gblx')}
-											style={{ ...ctaStyle, marginRight: margin }}
 											onChange={(primaryCalloutText) => setAttributes({ primaryCalloutText })} />
-										{
-											showSecondaryCallout 
-												? <LinkButton
-														value={secondaryCalloutText}
-														className={styles['secondary-cta']}
-														placeholder={__('Action 2', 'gblx')}
-														style={{ ...ctaStyle, marginLeft: margin }}
-														onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })}	/>
-												: null }
-									</div>
-								</div>	
-							</section>
+									</Callout>
+									{
+										showSecondaryCallout 
+											? <Callout
+													{...attributes}
+													border={calloutBorder}
+													color={primaryColor}
+													padding={calloutPadding}
+													margin={calloutMargin}
+													fontSize={calloutFontSize}
+													borderRadius={calloutBorderRadius}
+													transformText={calloutTransformText}
+													showBackground={calloutShowBackground}>
+												<EditableButton
+													className="secondary-cta"
+													value={secondaryCalloutText}
+													placeholder={__('Action 2', 'gblx')}
+													onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })}	/>
+												</Callout>
+											: null }
+								</div>
+							</Wrapper>
 				}
 			</div>
 		)
@@ -456,38 +453,75 @@ class GblxCta extends Component {
 	save = ({ attributes }) => {
 		const {
 			background,
-			textColor,
-			alignment,
 			bodyContent,
 			headerText,
 			headerFontSize,
 			contentFontSize,
 			overlayColor,
 			overlayOpacity,
+			fixedBackground,
+			textAlignment,
+			textBrightness,
 			primaryCalloutText,
-			secondaryCalloutText
+			secondaryCalloutText,
+			showSecondaryCallout,
+			primaryColor,
+			accentColor,
+			calloutFontSize,
+			calloutBorder,
+			calloutBorderRadius,
+			calloutShowBackground,
+			calloutTransformText,
+			calloutMargin,
+			calloutPadding,
+			verticalAlignment
 		} = attributes
 		return (
-			<section 
-				style={{
-					backgroundImage: `url(${background})`
-				}}>
-				<div>
-					<h2>{ headerText }</h2>
-					<p>{ bodyContent }</p>
+			<Wrapper {...attributes}>
+					<Header fontSize={headerFontSize}>
+						<h2>
+							{headerText}
+						</h2>
+					</Header>
+					<Content fontSize={contentFontSize}>
+						<p>
+							{bodyContent}
+						</p>
+					</Content>
+				<div className="callouts">
+					<Callout
+						{...attributes}
+						border={calloutBorder}
+						color={primaryColor}
+						padding={calloutPadding}
+						margin={calloutMargin}
+						fontSize={calloutFontSize}
+						borderRadius={calloutBorderRadius}
+						transformText={calloutTransformText}
+						showBackground={calloutShowBackground}>
+						<Button 
+							className="primary-cta">
+							{primaryCalloutText}
+						</Button>
+					</Callout>
+					<Callout
+						{...attributes}
+						border={calloutBorder}
+						color={primaryColor}
+						padding={calloutPadding}
+						margin={calloutMargin}
+						fontSize={calloutFontSize}
+						borderRadius={calloutBorderRadius}
+						transformText={calloutTransformText}
+						showBackground={calloutShowBackground}>
+						<Button 
+							className="secondary-cta">
+							{secondaryCalloutText}
+						</Button>
+					</Callout>
 				</div>
-				<div>
-					<Button 
-						className="gblx-primary-cta">
-						{ primaryCalloutText }
-					</Button>
-					<Button 
-						className="gblx-secondary-cta">
-						{ secondaryCalloutText }
-					</Button>
-				</div>
-			</section>
-		)
+			</Wrapper>
+		) 
 	}
 
 }

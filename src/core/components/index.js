@@ -1,1 +1,1 @@
-export { default as LinkButton } from './link-button'
+export { default as EditableButton } from './editable-button'

@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types'
 import {
-  RichText,
-  UrlInputButton 
+  RichText
 } from '@wordpress/blocks'
 import {
   Button
@@ -8,9 +8,8 @@ import {
 import {
   Component
 } from '@wordpress/element'
-import styles from './link-button.scss'
 
-export default ({ ...props, value, placeholder, onChange }) => (
+const EditableButton = ({ ...props, value, placeholder, onChange }) => (
   <Button 
     {...props}>
     <RichText 
@@ -19,3 +18,11 @@ export default ({ ...props, value, placeholder, onChange }) => (
       placeholder={placeholder} />
   </Button>
 )
+
+EditableButton.propTypes = {
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func
+}
+
+export default EditableButton
