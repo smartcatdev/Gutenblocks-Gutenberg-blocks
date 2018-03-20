@@ -29,9 +29,6 @@ import {
 import {
 	relativeRange 
 } from '@gblx/utils/math'
-import {
-	EditableButton
-} from '@gblx/components'
 import Wrapper from './wrapper'
 import Header from './header'
 import Content from './content'
@@ -366,11 +363,6 @@ class GblxCta extends Component {
 			headerText,
 			headerFontSize,
 			contentFontSize,
-			overlayColor,
-			overlayOpacity,
-			fixedBackground,
-			textAlignment,
-			textBrightness,
 			primaryCalloutText,
 			secondaryCalloutText,
 			showSecondaryCallout,
@@ -382,9 +374,20 @@ class GblxCta extends Component {
 			calloutShowBackground,
 			calloutTransformText,
 			calloutMargin,
-			calloutPadding,
-			verticalAlignment
+			calloutPadding
 		} = attributes
+		const props = {
+			editor,
+			border: calloutBorder,
+			color: primaryColor,
+			accentColor: accentColor,
+			padding: calloutPadding,
+			margin: calloutMargin,
+			fontSize: calloutFontSize,
+			borderRadius: calloutBorderRadius,
+			transformText: calloutTransformText,
+			showBackground: calloutShowBackground
+		}
 		const margin = `${calloutMargin > 0 ? calloutMargin / 2 : 0}px`;
 		return (
 			<div>
@@ -408,17 +411,8 @@ class GblxCta extends Component {
 										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
 								</Content>
 								<div className="callouts">
-									<Callout
-										{...attributes}
-										border={calloutBorder}
-										color={primaryColor}
-										padding={calloutPadding}
-										margin={calloutMargin}
-										fontSize={calloutFontSize}
-										borderRadius={calloutBorderRadius}
-										transformText={calloutTransformText}
-										showBackground={calloutShowBackground}>
-										<EditableButton
+									<Callout {...props}>
+										<RichText
 											className="primary-cta"
 											value={primaryCalloutText}
 											placeholder={__('Action 1', 'gblx')}
@@ -426,21 +420,12 @@ class GblxCta extends Component {
 									</Callout>
 									{
 										showSecondaryCallout 
-											? <Callout
-													{...attributes}
-													border={calloutBorder}
-													color={primaryColor}
-													padding={calloutPadding}
-													margin={calloutMargin}
-													fontSize={calloutFontSize}
-													borderRadius={calloutBorderRadius}
-													transformText={calloutTransformText}
-													showBackground={calloutShowBackground}>
-												<EditableButton
-													className="secondary-cta"
-													value={secondaryCalloutText}
-													placeholder={__('Action 2', 'gblx')}
-													onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })}	/>
+											? <Callout {...props}>
+													<RichText
+														className="secondary-cta"
+														value={secondaryCalloutText}
+														placeholder={__('Action 2', 'gblx')}
+														onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })}	/>
 												</Callout>
 											: null }
 								</div>
@@ -452,73 +437,61 @@ class GblxCta extends Component {
 
 	save = ({ attributes }) => {
 		const {
-			background,
-			bodyContent,
 			headerText,
+			bodyContent,
+			primaryCalloutURL,
+			primaryCalloutText,
+			secondaryCalloutURL,
+			secondaryCalloutText,
 			headerFontSize,
 			contentFontSize,
-			overlayColor,
-			overlayOpacity,
-			fixedBackground,
-			textAlignment,
-			textBrightness,
-			primaryCalloutText,
-			secondaryCalloutText,
-			showSecondaryCallout,
-			primaryColor,
 			accentColor,
+			primaryColor,
+			calloutPadding,
+			calloutMargin,
 			calloutFontSize,
 			calloutBorder,
 			calloutBorderRadius,
-			calloutShowBackground,
 			calloutTransformText,
-			calloutMargin,
-			calloutPadding,
-			verticalAlignment
+			calloutShowBackground,
+			showSecondaryCallout
 		} = attributes
+		const props = {
+			accentColor: accentColor,
+			color: primaryColor,
+			padding: calloutPadding,
+			margin: calloutMargin,
+			fontSize: calloutFontSize,
+			border: calloutBorder,
+			borderRadius: calloutBorderRadius,
+			transformText: calloutTransformText,
+			showBackground: calloutShowBackground
+		}
 		return (
 			<Wrapper {...attributes}>
 					<Header fontSize={headerFontSize}>
-						<h2>
-							{headerText}
-						</h2>
+						<h2>{headerText}</h2>
 					</Header>
 					<Content fontSize={contentFontSize}>
-						<p>
-							{bodyContent}
-						</p>
+						<p>{bodyContent}</p>
 					</Content>
 				<div className="callouts">
 					<Callout
-						{...attributes}
-						border={calloutBorder}
-						color={primaryColor}
-						padding={calloutPadding}
-						margin={calloutMargin}
-						fontSize={calloutFontSize}
-						borderRadius={calloutBorderRadius}
-						transformText={calloutTransformText}
-						showBackground={calloutShowBackground}>
-						<Button 
-							className="primary-cta">
+						{...props}
+						href={primaryCalloutURL}>
+						<span	className="primary-cta"> 
 							{primaryCalloutText}
-						</Button>
+						</span>
 					</Callout>
-					<Callout
-						{...attributes}
-						border={calloutBorder}
-						color={primaryColor}
-						padding={calloutPadding}
-						margin={calloutMargin}
-						fontSize={calloutFontSize}
-						borderRadius={calloutBorderRadius}
-						transformText={calloutTransformText}
-						showBackground={calloutShowBackground}>
-						<Button 
-							className="secondary-cta">
-							{secondaryCalloutText}
-						</Button>
-					</Callout>
+					{ showSecondaryCallout 
+							? <Callout
+									{...props}
+									href={secondaryCalloutURL}>
+									<span className="secondary-cta">
+										{secondaryCalloutText}
+									</span>
+								</Callout>
+							: null }
 				</div>
 			</Wrapper>
 		) 

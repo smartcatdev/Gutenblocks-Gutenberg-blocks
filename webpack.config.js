@@ -25,6 +25,7 @@ module.exports = {
         options: {
           presets: ['env', 'react'],
           plugins: [
+            'styled-jsx/babel',
             'babel-plugin-transform-class-properties',
             'babel-plugin-transform-object-rest-spread'
           ]

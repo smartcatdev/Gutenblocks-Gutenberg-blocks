@@ -13,13 +13,13 @@
   }
   &.has-left-alignment {
     align-items: flex-start;
-    .header, .content, .callouts {
+    .header h2, .content p, .callouts {
       text-align: left;
     }
   }
   &.has-right-alignment {
     align-items: flex-end;
-    .header, .content, .callouts {
+    .header h2, .content p, .callouts {
       text-align: right;
     }
   }
@@ -34,27 +34,49 @@
     z-index: 1;
     position: relative;
     top: 100px;
+    padding: 15px;
+    overflow: hidden;
   }
   .callouts {
     text-align: center;
     width: 100%;
   }
-
   .header h2, .content p {
     z-index: 1;
     max-width: 636px;
-    padding: 5px;
     text-align: center;
     color: inherit;
+    line-height: inherit;
     font-size: inherit;
   }
-  
   .callout {
     display: inline-block;
-  }
-
-  .primary-cta, .secondary-cta {
+    box-sizing: border-box;
+    box-shadow: none;
+    -webkit-box-shadow: none;
     min-width: 20px;
+    &:hover {
+      text-decoration: none;
+      box-shadow: none;
+    }
+    &.has-transform > * {
+      text-transform: uppercase;
+    }
+    & > * {
+      color: inherit;
+    }
+    &:first-of-type {
+      margin-left: 0 !important;
+    }
+    &:last-of-type {
+      margin-right: 0 !important;
+    }
+  }
+  .header, .content, .callouts {
+    margin: 15px auto;
+  }
+  .primary-cta, .secondary-cta {
     height: 50px;
+    line-height: 50px;
   }
 }

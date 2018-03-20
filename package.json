@@ -25,6 +25,7 @@
     "prop-types": "^15.6.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
+    "styled-jsx": "^2.2.6",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.11"
   },

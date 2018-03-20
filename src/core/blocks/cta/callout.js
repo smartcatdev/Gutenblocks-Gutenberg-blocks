@@ -11,10 +11,16 @@ const Callout = ({
   borderRadius, 
   transformText, 
   margin,
-  padding 
+  padding,
+  href,
+  editor
 }) => (
-  <div
-    className="callout"
+  <a
+    className={classNames({
+      callout: true,
+      'has-transform': transformText
+    })}
+    href={href}
     style={{
       color: accentColor,
       padding: `0 ${padding}px`,
@@ -22,14 +28,21 @@ const Callout = ({
       fontSize: `${fontSize}px`,
       borderRadius: `${borderRadius}px`,
       border: `${border}px solid ${accentColor}`,
-      background: showBackground ? color : 'transparent',
-      textTransform: transformText ? 'uppercase': 'inherit'
+      background: showBackground ? color : 'transparent'
     }}>
+    { !editor 
+        ? <style jsx>{`
+            a.callout:hover {
+              background: ${color} !important
+            }
+          `}</style>
+        : null }
     {children}
-  </div>
+  </a>
 )
 
 Callout.propTypes = {
+  href: PropTypes.string,
   color: PropTypes.string,
   accentColor: PropTypes.string,
   padding: PropTypes.number,
