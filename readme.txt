@@ -10,7 +10,7 @@ Requires PHP: 5.5
 A collection of useful Gutenberg blocks
 
 == Description ==
-
+Guteblocks is a collection of Gutenberg blocks for the new WordPress editor.
 
 
 == Installation ==
