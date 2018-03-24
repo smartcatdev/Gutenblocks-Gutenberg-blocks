@@ -5,6 +5,7 @@ Requires at least: 4.9.4
 Tested up to: 4.9.4
 Stable tag: 0.1a
 License: GPLv2 or later
+Requires PHP: 5.5
 
 A collection of useful Gutenberg blocks
 
