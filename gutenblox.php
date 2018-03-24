@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Smartcat Gutenblocks
+ * Plugin Name: Gutenblocks
  * Version: 0.0.1a
  * 
  * @since 0.0.1a
