@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: Gutenblocks
+ * Description: A collection of useful Gutenberg blocks
  * Version: 0.0.1a
  * 
  * @since 0.0.1a
