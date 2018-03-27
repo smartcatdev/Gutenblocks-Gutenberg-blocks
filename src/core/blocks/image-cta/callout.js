@@ -16,7 +16,10 @@ const Callout = ({
   editor
 }) => (
   <a
-    className={classNames('callout', { 'has-transform': transformText })}
+    className={classNames(
+      'gblx-image-cta__callout', 
+      { 'has-transform': transformText }
+    )}
     href={href}
     style={{
       color: accentColor,

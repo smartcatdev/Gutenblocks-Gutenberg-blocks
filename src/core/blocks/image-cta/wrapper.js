@@ -32,9 +32,9 @@ const Wrapper = ({
         background: overlayColor,
         opacity: overlayOpacity > 0 ? overlayOpacity / 100 : 0
       }} 
-      className="overlay" />
+      className="gblx-image-cta__overlay" />
     <div 
-      className="inner"
+      className="gblx-image-cta__inner"
       style={{
         top: `${-(relativeRange(-100, 100, verticalAlignment))}px`
       }}>

@@ -29,12 +29,10 @@ import {
 import {
 	relativeRange 
 } from '@gblx/utils/math'
-import {
-	Wrapper,
-	Header,
-	Content,
-	Callout 
-} from './common'
+import Wrapper from './wrapper'
+import Content from './content'
+import Callout from './callout'
+import Header from './header'
 import './block.scss'
 
 /**
@@ -97,11 +95,11 @@ class ImageCTA extends Component {
 		},
 		primaryCalloutText: {
 			source: 'children',
-			selector: '.primary-cta'
+			selector: '.gblx-image-cta__primary-cta'
 		},
 		secondaryCalloutText: {
 			source: 'children',
-			selector: '.secondary-cta'
+			selector: '.gblx-image-cta__secondary-cta'
 		},
 		primaryCalloutURL: {
 			type: 'text' 
@@ -182,11 +180,11 @@ class ImageCTA extends Component {
 				<div>
 					<h2>{ __('Display Settings', 'gblx')}</h2>
 					<BaseControl
-						id="gblx-secondary-cta-toggle"
+						id="gblx-image-cta__secondary-cta-toggle"
 						className="blocks-toggle-control"
 						label={__('Secondary Callout', 'gblx')}>
 						<FormToggle 
-							id="gblx-secondary-cta-toggle"
+							id="gblx-image-cta__secondary-cta-toggle"
 							checked={showSecondaryCallout}
 							onChange={(e) => setAttributes({ showSecondaryCallout: e.target.checked })} />
 					</BaseControl>
@@ -210,21 +208,21 @@ class ImageCTA extends Component {
 						onChange={(horizontalPadding) => setAttributes({ horizontalPadding })} />
 					<div className="links">
 						<BaseControl
-							id="gblx-cta-primary-link"
+							id="gblx-image-cta__primary-link"
 							label={__('Primary Callout Link', 'gblx')}>
 							<input
 								type="url"
-								id="gblx-cta-primary-link"
+								id="gblx-image-cta__primary-link"
 								value={primaryCalloutURL}
 								onChange={(e) => setAttributes({ primaryCalloutURL: e.target.value })} />
 						</BaseControl>
 						{ showSecondaryCallout 
 						? <BaseControl
-								id="gblx-cta-secondary-link"
+								id="gblx-image-cta__secondary-link"
 								label={__('Secondary Callout Link', 'gblx')}>
 								<input
 									type="url"
-									id="gblx-cta-secondary-link"
+									id="gblx-image-cta__secondary-link"
 									value={secondaryCalloutURL}
 									onChange={(e) => setAttributes({ secondaryCalloutURL: e.target.value })} />
 							</BaseControl>
@@ -243,20 +241,20 @@ class ImageCTA extends Component {
 				</PanelBody>
 				<PanelBody title={__('Callout Buttons', 'gblx')}>
 					<BaseControl
-						id="gblx-cta-background-toggle"
+						id="gblx-image-cta__background-toggle"
 						className="blocks-toggle-control"
 						label={__('Show Background', 'gblx')}>
 							<FormToggle 
-								id="gblx-cta-background-toggle"
+								id="gblx-image-cta__background-toggle"
 								checked={calloutShowBackground}
 								onChange={(e) => setAttributes({ calloutShowBackground: e.target.checked })} />
 					</BaseControl>
 					<BaseControl
-						id="gblx-cta-transform-text-toggle"
+						id="gblx-image-cta__transform-text-toggle"
 						className="blocks-toggle-control"
 						label={__('Transform Text', 'gblx')}>
 							<FormToggle 
-								id="gblx-cta-transform-text-toggle"
+								id="gblx-image-cta__transform-text-toggle"
 								checked={calloutTransformText}
 								onChange={(e) => setAttributes({ calloutTransformText: e.target.checked })} />
 					</BaseControl>
@@ -306,11 +304,11 @@ class ImageCTA extends Component {
 						value={overlayColor} 
 						onChange={(overlayColor) => setAttributes({ overlayColor })} />
 					<BaseControl
-						id="gblx-fixed-background-toggle"
+						id="gblx-image-cta__fixed-background-toggle"
 						className="blocks-toggle-control"
 						label={__('Fixed Background', 'gblx')}>
 						<FormToggle 
-							id="gblx-fixed-background-toggle"
+							id="gblx-image-cta__fixed-background-toggle"
 							checked={fixedBackground}
 							onChange={(e) => setAttributes({ fixedBackground: e.target.checked })}/>
 					</BaseControl>
@@ -434,10 +432,10 @@ class ImageCTA extends Component {
 										placeholder={__('Content Area', 'gblx')}
 										onChange={(bodyContent) => setAttributes({ bodyContent })} />	
 								</Content>
-								<div className="callouts">
+								<div className="gblx-image-cta__callouts">
 									<Callout {...props}>
 										<RichText
-											className="primary-cta"
+											className="gblx-image-cta__primary-cta"
 											value={primaryCalloutText}
 											placeholder={__('Action 1', 'gblx')}
 											onChange={(primaryCalloutText) => setAttributes({ primaryCalloutText })} />
@@ -446,7 +444,7 @@ class ImageCTA extends Component {
 										showSecondaryCallout 
 											? <Callout {...props}>
 													<RichText
-														className="secondary-cta"
+														className="gblx-image-cta__secondary-cta"
 														value={secondaryCalloutText}
 														placeholder={__('Action 2', 'gblx')}
 														onChange={(secondaryCalloutText) => setAttributes({ secondaryCalloutText })}	/>
@@ -499,11 +497,11 @@ class ImageCTA extends Component {
 					<Content fontSize={contentFontSize}>
 						<p>{bodyContent}</p>
 					</Content>
-				<div className="callouts">
+				<div className="gblx-image-cta__callouts">
 					<Callout
 						{...props}
 						href={primaryCalloutURL}>
-						<span	className="primary-cta"> 
+						<span	className="gblx-image-cta__primary-cta"> 
 							{primaryCalloutText}
 						</span>
 					</Callout>
@@ -511,7 +509,7 @@ class ImageCTA extends Component {
 							? <Callout
 									{...props}
 									href={secondaryCalloutURL}>
-									<span className="secondary-cta">
+									<span className="gblx-image-cta__secondary-cta">
 										{secondaryCalloutText}
 									</span>
 								</Callout>
