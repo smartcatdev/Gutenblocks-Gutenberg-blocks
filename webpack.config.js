@@ -29,6 +29,14 @@ module.exports = {
             'babel-plugin-transform-object-rest-spread'
           ]
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
+        ]
       }
     ]
   },

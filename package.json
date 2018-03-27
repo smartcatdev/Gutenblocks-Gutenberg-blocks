@@ -6,9 +6,10 @@
   "author": "Eric Green <ericgreen.developer@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js",
-    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js",
-    "clean": "rm -rf ./build/*"
+    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js --env development --progress",
+    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --end production --progress",
+    "clean": "rm -rf ./build/*",
+    "start": "yarn run develop"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
