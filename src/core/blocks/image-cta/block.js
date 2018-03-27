@@ -300,9 +300,11 @@ class ImageCTA extends Component {
 						value={overlayOpacity}
 						label={__('Overlay Opacity', 'gblx')}
 						onChange={(overlayOpacity) => setAttributes({ overlayOpacity })} />
-					<ColorPalette 
-						value={overlayColor} 
-						onChange={(overlayColor) => setAttributes({ overlayColor })} />
+					<BaseControl>
+						<ColorPalette 
+							value={overlayColor} 
+							onChange={(overlayColor) => setAttributes({ overlayColor })} />
+					</BaseControl>
 					<BaseControl
 						id="gblx-image-cta__fixed-background-toggle"
 						className="blocks-toggle-control"

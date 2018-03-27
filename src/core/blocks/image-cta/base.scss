@@ -42,16 +42,18 @@
   @include large-screen {
     &.has-left-alignment {
       align-items: flex-start;
+    }
+    &.has-left-alignment & {
       &__header h2, 
-      &__content p, 
-      &__callouts { text-align: left; }
+      &__content p { text-align: left; }
     }
 
     &.has-right-alignment {
       align-items: flex-end;
+    }
+    &.has-right-alignment & {
       &__header h2, 
-      &__content p, 
-      &__callouts { text-align: right; }
+      &__content p { text-align: right; }
     }
   }
 }
