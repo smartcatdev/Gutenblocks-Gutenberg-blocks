@@ -1,8 +1,5 @@
 import classNames from 'classnames'
 import { 
-	__ 
-} from '@wordpress/i18n'
-import { 
 	ColorPalette,
 	RichText,
 	PlainText,
@@ -23,16 +20,21 @@ import {
 	FormToggle,
 	BaseControl
 } from '@wordpress/components'
+import { 
+	__ 
+} from '@wordpress/i18n'
 import {
 	Component
 } from '@wordpress/element'
 import {
 	relativeRange 
 } from '@gblx/utils/math'
-import Wrapper from './wrapper'
-import Header from './header'
-import Content from './content'
-import Callout from './callout'
+import {
+	Wrapper,
+	Header,
+	Content,
+	Callout 
+} from './common'
 import './block.scss'
 
 /**
@@ -40,10 +42,10 @@ import './block.scss'
  * 
  * @since 1.0.0
  */
-class GblxCta extends Component {
-	title = __('GBLX CTA', 'gblx')
+class ImageCTA extends Component {
+	title = __('Image CTA', 'gblx')
 	icon = 'megaphone'
-	category = 'common'
+	category = 'widgets'
 	attributes = {
 		headerText: {
 			source: 'children',
@@ -521,6 +523,4 @@ class GblxCta extends Component {
 
 }
 
-export default registerBlockType('gblx/cta', new GblxCta())
-
-console.log(wp)
+export default registerBlockType('gblx/image-cta', new ImageCTA())

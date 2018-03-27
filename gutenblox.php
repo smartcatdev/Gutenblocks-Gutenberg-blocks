@@ -14,15 +14,15 @@ add_action( 'init', 'gblx\register_blocks' );
 
 function register_blocks() {
   $block_types = array(
-    'gblx/cta' => array(
+    'gblx/image-cta' => array(
       'init'   => function () {
-        register_block_assets( 'cta' );
+        register_block_assets( 'image-cta' );
       },
       'config' => array(
-        'editor_script' => 'gblx-cta-editor',
-        'editor_style'  => 'gblx-cta-editor',
-        'script' => 'gblx-cta',
-        'style'  => 'gblx-cta'
+        'editor_script' => 'gblx-image-cta-editor',
+        'editor_style'  => 'gblx-image-cta-editor',
+        'script' => 'gblx-image-cta',
+        'style'  => 'gblx-image-cta'
       )
     )
   );

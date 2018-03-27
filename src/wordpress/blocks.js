@@ -11,5 +11,5 @@ export const {
   BlockAlignmentToolbar,
   ImagePlaceholder,
   UrlInput,
-  UrlInputButton  
+  UrlInputButton
 } = wp.blocks

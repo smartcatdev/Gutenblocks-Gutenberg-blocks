@@ -17,8 +17,7 @@ const Wrapper = ({
   horizontalPadding 
 }) => (
   <section 
-    className={classNames({
-      'gblx-cta': true,
+    className={classNames('gblx-image-cta', {
       'has-parallax': fixedBackground,
       'has-left-alignment': textAlignment === 'left',
       'has-right-alignment': textAlignment === 'right',

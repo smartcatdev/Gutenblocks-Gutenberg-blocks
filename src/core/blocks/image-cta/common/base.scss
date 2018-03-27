@@ -1,6 +1,6 @@
 @import '~scss/dimensions';
 
-.gblx-cta {
+.gblx-image-cta {
   position: relative;
   background-size: cover;
   height: auto;
@@ -54,6 +54,12 @@
     font-size: inherit;
   }
 
+  .header, 
+  .content, 
+  .callouts {
+    margin: 15px auto;
+  }
+
   .callout {
     display: block;
     text-align: center;
@@ -61,36 +67,30 @@
     box-shadow: none;
     -webkit-box-shadow: none;
     min-width: 20px;
-
+  
     &:hover {
       text-decoration: none;
       box-shadow: none;
     }
-
+  
     &.has-transform > * {
       text-transform: uppercase;
     }
-
+  
     & > * {
       color: inherit;
     }
-
+  
     @include mobile {
       & { margin: 10px auto !important; }
     }
-
+  
     @include large-screen {
       & { display: inline-block; }
       &:first-of-type { margin-left:  0 !important; }
       &:last-of-type  { margin-right: 0 !important; }
     }
-  }
-
-  .header, 
-  .content, 
-  .callouts {
-    margin: 15px auto;
-  }
+  }  
 
   .primary-cta, 
   .secondary-cta {

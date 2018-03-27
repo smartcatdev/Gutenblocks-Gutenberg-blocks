@@ -16,10 +16,7 @@ const Callout = ({
   editor
 }) => (
   <a
-    className={classNames({
-      callout: true,
-      'has-transform': transformText
-    })}
+    className={classNames('callout', { 'has-transform': transformText })}
     href={href}
     style={{
       color: accentColor,
