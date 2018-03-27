@@ -63,6 +63,14 @@ class GblxCta extends Component {
 			type: 'integer',
 			default: 50
 		},
+		horizontalPadding: {
+			type: 'integer',
+			default: 0
+		},
+		verticalPadding: {
+			type: 'integer',
+			default: 45
+		},
 		headerFontSize: {
 			type: 'integer',
 			default: 32
@@ -162,6 +170,8 @@ class GblxCta extends Component {
 			calloutShowBackground,
 			calloutTransformText,
 			verticalAlignment,
+			verticalPadding,
+			horizontalPadding,
 			primaryCalloutURL,
 			secondaryCalloutURL
 		} = attributes
@@ -184,6 +194,18 @@ class GblxCta extends Component {
 						value={verticalAlignment}
 						label={__('Vertical Alignment', 'gblx')}
 						onChange={(verticalAlignment) => setAttributes({ verticalAlignment })} />
+					<RangeControl
+						min={0}
+						max={100}
+						value={verticalPadding}
+						label={__('Vertical Padding', 'gblx')}
+						onChange={(verticalPadding) => setAttributes({ verticalPadding })} />
+					<RangeControl
+						min={0}
+						max={100}
+						value={horizontalPadding}
+						label={__('Horizontal Padding', 'gblx')}
+						onChange={(horizontalPadding) => setAttributes({ horizontalPadding })} />
 					<div className="links">
 						<BaseControl
 							id="gblx-cta-primary-link"

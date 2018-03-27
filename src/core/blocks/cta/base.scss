@@ -3,16 +3,24 @@
 .gblx-cta {
   position: relative;
   background-size: cover;
-  height: 430px;
+  height: auto;
   width: 100%;
   margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  word-break: break-all;
 
   &.has-parallax {
     background-attachment: fixed;
+  }
+
+  @include mobile {
+    & {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
   }
 
   .overlay {
@@ -49,7 +57,6 @@
   .callout {
     display: block;
     text-align: center;
-    margin: 10px auto;
     box-sizing: border-box;
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -69,23 +76,13 @@
     }
 
     @include mobile {
-      & {
-        margin: 10px auto !important;
-      }
+      & { margin: 10px auto !important; }
     }
 
     @include large-screen {
-      & {
-        display: inline-block;
-      }
-
-      &:first-of-type {
-        margin-left: 0 !important;
-      }
-
-      &:last-of-type {
-        margin-right: 0 !important;
-      }
+      & { display: inline-block; }
+      &:first-of-type { margin-left:  0 !important; }
+      &:last-of-type  { margin-right: 0 !important; }
     }
   }
 

@@ -12,7 +12,9 @@ const Wrapper = ({
   textBrightness, 
   overlayColor, 
   overlayOpacity, 
-  verticalAlignment 
+  verticalAlignment,
+  verticalPadding,
+  horizontalPadding 
 }) => (
   <section 
     className={classNames({
@@ -24,6 +26,7 @@ const Wrapper = ({
     style={{ 
       color: `hsl(0, 0%, ${textBrightness}%)`,
       backgroundImage: `url(${background})`, 
+      padding: `${verticalPadding}px ${horizontalPadding}px`
     }}>
     <div 
       style={{ 
@@ -48,7 +51,9 @@ Wrapper.propTypes = {
   textBrightness: PropTypes.number,
   overlayColor: PropTypes.string,
   overlayOpacity: PropTypes.number,
-  verticalAlignment: PropTypes.number
+  verticalAlignment: PropTypes.number,
+  verticalPadding: PropTypes.number,
+  horizontalPadding: PropTypes.number
 }
 
 export default Wrapper
