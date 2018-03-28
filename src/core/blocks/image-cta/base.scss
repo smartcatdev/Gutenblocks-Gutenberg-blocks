@@ -20,16 +20,10 @@
   &__content p {
     z-index: 1;
     max-width: 636px;
-    text-align: center;
     color: inherit;
-    line-height: inherit;
+    text-align: center;
     font-size: inherit;
-  }
-
-  &__header, 
-  &__content, 
-  &__callouts {
-    margin: 15px auto;
+    line-height: inherit !important;
   }
 
   @include mobile {
@@ -44,6 +38,7 @@
       align-items: flex-start;
     }
     &.has-left-alignment & {
+      &__callouts,
       &__header h2, 
       &__content p { text-align: left; }
     }
@@ -52,6 +47,7 @@
       align-items: flex-end;
     }
     &.has-right-alignment & {
+      &__callouts,
       &__header h2, 
       &__content p { text-align: right; }
     }
@@ -77,6 +73,7 @@
 .gblx-image-cta__callouts {
   text-align: center;
   width: 100%;
+  margin: 15px auto;
 }
 
 .gblx-image-cta__callout {

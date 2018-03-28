@@ -6,7 +6,7 @@ import {
 
 const Wrapper = ({ 
   children, 
-  background, 
+  backgroundColor, 
   fixedBackground, 
   textAlignment, 
   textBrightness, 
@@ -17,24 +17,18 @@ const Wrapper = ({
   horizontalPadding 
 }) => (
   <section 
-    className={classNames('gblx-image-cta', {
+    className={classNames('gblx-colour-cta', {
       'has-parallax': fixedBackground,
       'has-left-alignment': textAlignment === 'left',
       'has-right-alignment': textAlignment === 'right',
     })} 
-    style={{ 
+    style={{     
+      background: backgroundColor, 
       color: `hsl(0, 0%, ${textBrightness}%)`,
-      backgroundImage: `url(${background})`, 
       padding: `${verticalPadding}px ${horizontalPadding}px`
     }}>
     <div 
-      style={{ 
-        background: overlayColor,
-        opacity: overlayOpacity > 0 ? overlayOpacity / 100 : 0
-      }} 
-      className="gblx-image-cta__overlay" />
-    <div 
-      className="gblx-image-cta__inner"
+      className="gblx-colour-cta__inner"
       style={{
         top: `${-(relativeRange(-100, 100, verticalAlignment))}px`
       }}>

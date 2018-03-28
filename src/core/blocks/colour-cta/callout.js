@@ -17,7 +17,7 @@ const Callout = ({
 }) => (
   <a
     className={classNames(
-      'gblx-image-cta__callout', 
+      'gblx-colour-cta__callout', 
       { 'has-transform': transformText }
     )}
     href={href}

@@ -112,10 +112,12 @@ class ImageCTA extends Component {
 			default: 100
 		},
 		primaryColor: {
-			type: 'string'
+			type: 'string',
+			default: 'rgb(6, 147, 227)'
 		},
 		accentColor: {
-			type: 'string'
+			type: 'string',
+			default: 'rgb(255, 255, 255)'
 		},
 		calloutBorder: {
 			type: 'integer',
@@ -139,7 +141,7 @@ class ImageCTA extends Component {
 		},
 		calloutPadding: {
 			type: 'integer',
-			default: 5
+			default: 15
 		},
 		calloutFontSize: {
 			type: 'integer',
@@ -188,24 +190,104 @@ class ImageCTA extends Component {
 							checked={showSecondaryCallout}
 							onChange={(e) => setAttributes({ showSecondaryCallout: e.target.checked })} />
 					</BaseControl>
-					<RangeControl
-						min={0}
-						max={100}
-						value={verticalAlignment}
-						label={__('Vertical Alignment', 'gblx')}
-						onChange={(verticalAlignment) => setAttributes({ verticalAlignment })} />
-					<RangeControl
-						min={0}
-						max={100}
-						value={verticalPadding}
-						label={__('Vertical Padding', 'gblx')}
-						onChange={(verticalPadding) => setAttributes({ verticalPadding })} />
-					<RangeControl
-						min={0}
-						max={100}
-						value={horizontalPadding}
-						label={__('Horizontal Padding', 'gblx')}
-						onChange={(horizontalPadding) => setAttributes({ horizontalPadding })} />
+					<PanelBody>
+						<RangeControl
+							min={0}
+							max={100}
+							value={verticalAlignment}
+							label={__('Vertical Alignment', 'gblx')}
+							onChange={(verticalAlignment) => setAttributes({ verticalAlignment })} />
+						<RangeControl
+							min={0}
+							max={100}
+							value={verticalPadding}
+							label={__('Vertical Padding', 'gblx')}
+							onChange={(verticalPadding) => setAttributes({ verticalPadding })} />
+						<RangeControl
+							min={0}
+							max={100}
+							value={horizontalPadding}
+							label={__('Horizontal Padding', 'gblx')}
+							onChange={(horizontalPadding) => setAttributes({ horizontalPadding })} />
+					</PanelBody>
+				</div>
+				<PanelBody title={__('Background Settings', 'gblx')}>
+					<ColorPalette 
+							value={overlayColor} 
+							onChange={(overlayColor) => setAttributes({ overlayColor })} />
+					<PanelBody>
+						<RangeControl
+							min={0}
+							max={100}
+							value={overlayOpacity}
+							label={__('Overlay Opacity', 'gblx')}
+							onChange={(overlayOpacity) => setAttributes({ overlayOpacity })} />
+					</PanelBody>
+					<BaseControl
+						id="gblx-image-cta__fixed-background-toggle"
+						className="blocks-toggle-control"
+						label={__('Fixed Background', 'gblx')}>
+						<FormToggle 
+							id="gblx-image-cta__fixed-background-toggle"
+							checked={fixedBackground}
+							onChange={(e) => setAttributes({ fixedBackground: e.target.checked })}/>
+					</BaseControl>
+				</PanelBody>
+				<PanelBody title={__('Callout Buttons', 'gblx')}>
+					<BaseControl
+						id="gblx-image-cta__background-toggle"
+						className="blocks-toggle-control"
+						label={__('Show Background', 'gblx')}>
+							<FormToggle 
+								id="gblx-image-cta__background-toggle"
+								checked={calloutShowBackground}
+								onChange={(e) => setAttributes({ calloutShowBackground: e.target.checked })} />
+					</BaseControl>
+					<BaseControl
+						id="gblx-image-cta__transform-text-toggle"
+						className="blocks-toggle-control"
+						label={__('Transform Text', 'gblx')}>
+							<FormToggle 
+								id="gblx-image-cta__transform-text-toggle"
+								checked={calloutTransformText}
+								onChange={(e) => setAttributes({ calloutTransformText: e.target.checked })} />
+					</BaseControl>
+					<PanelBody>
+						<RangeControl
+							min={0}
+							max={4}
+							value={calloutBorder}
+							label={__('Border Thickness', 'gblx')}
+							onChange={(calloutBorder) => setAttributes({ calloutBorder })} />
+						<RangeControl
+							min={0}
+							max={100}
+							value={calloutBorderRadius}
+							label={__('Border Radius', 'gblx')}
+							onChange={(calloutBorderRadius) => setAttributes({ calloutBorderRadius })} />
+						{ showSecondaryCallout 
+								? <RangeControl
+										min={5}
+										max={30}
+										value={calloutMargin}
+										label={__('Margin', 'gblx')}
+										onChange={(calloutMargin) => setAttributes({ calloutMargin })} />
+								: null
+						}
+						<RangeControl
+							min={5}
+							max={30}
+							value={calloutPadding}
+							label={__('Padding', 'gblx')}
+							onChange={(calloutPadding) => setAttributes({ calloutPadding })} />
+						<RangeControl
+							min={14}
+							max={24}
+							value={calloutFontSize}
+							beforeIcon="editor-textcolor"
+							label={__('Font Size', 'gblx')}
+							onChange={(calloutFontSize) => setAttributes({ calloutFontSize })} />
+					</PanelBody>
 					<div className="gblx-image-cta__links">
 						<BaseControl
 							id="gblx-image-cta__primary-link"
@@ -228,7 +310,7 @@ class ImageCTA extends Component {
 							</BaseControl>
 						: null }
 					</div>
-				</div>
+				</PanelBody>
 				<PanelBody title={__('Primary Color', 'gblx')}>
 					<ColorPalette 
 							value={primaryColor} 
@@ -238,82 +320,6 @@ class ImageCTA extends Component {
 					<ColorPalette 
 						value={accentColor} 
 						onChange={(accentColor) => setAttributes({ accentColor })} />
-				</PanelBody>
-				<PanelBody title={__('Callout Buttons', 'gblx')}>
-					<BaseControl
-						id="gblx-image-cta__background-toggle"
-						className="blocks-toggle-control"
-						label={__('Show Background', 'gblx')}>
-							<FormToggle 
-								id="gblx-image-cta__background-toggle"
-								checked={calloutShowBackground}
-								onChange={(e) => setAttributes({ calloutShowBackground: e.target.checked })} />
-					</BaseControl>
-					<BaseControl
-						id="gblx-image-cta__transform-text-toggle"
-						className="blocks-toggle-control"
-						label={__('Transform Text', 'gblx')}>
-							<FormToggle 
-								id="gblx-image-cta__transform-text-toggle"
-								checked={calloutTransformText}
-								onChange={(e) => setAttributes({ calloutTransformText: e.target.checked })} />
-					</BaseControl>
-					<RangeControl
-						min={0}
-						max={4}
-						value={calloutBorder}
-						label={__('Border Thickness', 'gblx')}
-						onChange={(calloutBorder) => setAttributes({ calloutBorder })} />
-					<RangeControl
-						min={0}
-						max={100}
-						value={calloutBorderRadius}
-						label={__('Border Radius', 'gblx')}
-						onChange={(calloutBorderRadius) => setAttributes({ calloutBorderRadius })} />
-					{ showSecondaryCallout 
-							? <RangeControl
-									min={5}
-									max={30}
-									value={calloutMargin}
-									label={__('Margin', 'gblx')}
-									onChange={(calloutMargin) => setAttributes({ calloutMargin })} />
-							: null
-					}
-					<RangeControl
-						min={5}
-						max={30}
-						value={calloutPadding}
-						label={__('Padding', 'gblx')}
-						onChange={(calloutPadding) => setAttributes({ calloutPadding })} />
-					<RangeControl
-						min={14}
-						max={24}
-						value={calloutFontSize}
-						beforeIcon="editor-textcolor"
-						label={__('Font Size', 'gblx')}
-						onChange={(calloutFontSize) => setAttributes({ calloutFontSize })} />
-				</PanelBody>
-				<PanelBody title={__('Background Settings', 'gblx')}>
-					<RangeControl
-						min={0}
-						max={100}
-						value={overlayOpacity}
-						label={__('Overlay Opacity', 'gblx')}
-						onChange={(overlayOpacity) => setAttributes({ overlayOpacity })} />
-					<BaseControl>
-						<ColorPalette 
-							value={overlayColor} 
-							onChange={(overlayColor) => setAttributes({ overlayColor })} />
-					</BaseControl>
-					<BaseControl
-						id="gblx-image-cta__fixed-background-toggle"
-						className="blocks-toggle-control"
-						label={__('Fixed Background', 'gblx')}>
-						<FormToggle 
-							id="gblx-image-cta__fixed-background-toggle"
-							checked={fixedBackground}
-							onChange={(e) => setAttributes({ fixedBackground: e.target.checked })}/>
-					</BaseControl>
 				</PanelBody>
 				<PanelBody title={__('Text Settings', 'gblx')}>
 					<RangeControl

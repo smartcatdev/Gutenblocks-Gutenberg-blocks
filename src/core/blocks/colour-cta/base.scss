@@ -1,6 +1,6 @@
 @import '~scss/dimensions';
 
-.gblx-image-cta {
+.gblx-colour-cta {
   position: relative;
   background-size: cover;
   height: auto;
@@ -20,16 +20,10 @@
   &__content p {
     z-index: 1;
     max-width: 636px;
-    text-align: center;
     color: inherit;
-    line-height: inherit;
+    text-align: center;
     font-size: inherit;
-  }
-
-  &__header, 
-  &__content, 
-  &__callouts {
-    margin: 15px auto;
+    line-height: inherit !important;
   }
 
   @include mobile {
@@ -44,6 +38,7 @@
       align-items: flex-start;
     }
     &.has-left-alignment & {
+      &__callouts,
       &__header h2, 
       &__content p { text-align: left; }
     }
@@ -52,21 +47,14 @@
       align-items: flex-end;
     }
     &.has-right-alignment & {
+      &__callouts,
       &__header h2, 
       &__content p { text-align: right; }
     }
   }
 }
 
-.gblx-image-cta__overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.gblx-image-cta__inner {
+.gblx-colour-cta__inner {
   z-index: 1;
   position: relative;
   top: 100px;
@@ -74,12 +62,13 @@
   overflow: hidden;
 }
 
-.gblx-image-cta__callouts {
+.gblx-colour-cta__callouts {
   text-align: center;
   width: 100%;
+  margin: 15px auto;
 }
 
-.gblx-image-cta__callout {
+.gblx-colour-cta__callout {
   display: block;
   text-align: center;
   box-sizing: border-box;
@@ -111,8 +100,8 @@
   }
 }  
 
-.gblx-image-cta__primary-cta, 
-.gblx-image-cta__secondary-cta {
+.gblx-colour-cta__primary-cta, 
+.gblx-colour-cta__secondary-cta {
   height: 50px;
   line-height: 50px !important;
 }
