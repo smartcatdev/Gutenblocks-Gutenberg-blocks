@@ -1,13 +1,13 @@
 {
-  "name": "gutenblox",
+  "name": "gutenberg-gutenblocks",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/smartcatdev/Gutenblox.git",
-  "author": "Eric Green <ericgreen.developer@gmail.com>",
+  "repository": "https://github.com/smartcatdev/Gutenblocks-Gutenberg-blocks.git",
+  "author": "Eric Green <eric@smartcat.ca>",
   "license": "MIT",
   "scripts": {
-    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js --env development --progress",
-    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --end production --progress",
+    "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js --env development",
+    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --end production",
     "clean": "rm -rf ./build/*",
     "start": "yarn run develop"
   },

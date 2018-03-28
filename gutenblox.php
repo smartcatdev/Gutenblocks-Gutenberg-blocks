@@ -16,7 +16,7 @@ add_action( 'init', 'gblx\register_blocks' );
 function register_blocks() {
   $block_types = array(
     'gblx/image-cta' => array(
-      'init'   => function () {
+      'init' => function () {
         register_block_assets( 'image-cta' );
       },
       'config' => array(
@@ -25,8 +25,20 @@ function register_blocks() {
         'script' => 'gblx-image-cta',
         'style'  => 'gblx-image-cta'
       )
+    ),
+    'gblx/colour-cta' => array(
+      'init' => function () {
+        register_block_assets( 'colour-cta' );
+      },
+      'config' => array(
+        'editor_script' => 'gblx-colour-cta-editor',
+        'editor_style'  => 'gblx-colour-cta-editor',
+        'script' => 'gblx-colour-cta',
+        'style'  => 'gblx-colour-cta'
+      )
     )
   );
+
   foreach( $block_types as $type => $block ) {
     call_user_func( $block['init'] );
     register_block_type( $type, $block['config'] );
@@ -47,6 +59,7 @@ function register_block_assets( $blockname ) {
     $site_script = "build/$blockname.site.production.min.js";
     $site_styles = "build/$blockname.site.css";
   }
+
   $editor_deps = array( 
     'wp-blocks', 
     'wp-i18n', 
@@ -57,6 +70,7 @@ function register_block_assets( $blockname ) {
     'jquery'
   );
   $version = VERSION;
+
   if ( wp_debug() ) {
     $version = filemtime( plugin_dir_path( __FILE__ ) . $editor_script );
   }
@@ -64,11 +78,13 @@ function register_block_assets( $blockname ) {
   if ( !is_admin() ) {
     wp_register_script( "gblx-$blockname", plugins_url( $site_script, __FILE__ ), $site_deps, $version );
   }
+
   wp_register_script( "gblx-$blockname-editor", plugins_url( $editor_script , __FILE__ ), $editor_deps, $version );
 
   if ( !empty( $editor_styles ) ) {
     wp_register_style("gblx-$blockname-editor", plugins_url( $editor_styles, __FILE__ ), null, $version );
   }
+  
   if ( !is_admin() && !empty( $site_styles ) ) {
     wp_register_style("gblx-$blockname", plugins_url( $site_styles, __FILE__ ), null, $version );
   }
