@@ -1,0 +1,8 @@
+.gblx-widget-columns {
+  &__inner {
+    display: flex;
+  }
+  &__column {
+    flex-direction: row;
+  }
+}

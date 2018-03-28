@@ -24,9 +24,6 @@ import {
 	__ 
 } from '@wordpress/i18n'
 import {
-	Component
-} from '@wordpress/element'
-import {
 	relativeRange 
 } from '@gblx/utils/math'
 import Wrapper from './wrapper'
@@ -40,7 +37,7 @@ import './block.scss'
  * 
  * @since 1.0.0
  */
-class ImageCTA extends Component {
+class ImageCTABlock {
 	title = __('Image CTA', 'gblx')
 	icon = 'megaphone'
 	category = 'widgets'
@@ -386,7 +383,7 @@ class ImageCTA extends Component {
 		)
 	}
 
-	edit = ({ className, attributes, setAttributes, isSelected }) => {
+	edit = ({ attributes, setAttributes, isSelected }) => {
 		const {
 			background,
 			bodyContent,
@@ -529,4 +526,4 @@ class ImageCTA extends Component {
 
 }
 
-export default registerBlockType('gblx/image-cta', new ImageCTA())
+export default registerBlockType('gblx/image-cta', new ImageCTABlock())

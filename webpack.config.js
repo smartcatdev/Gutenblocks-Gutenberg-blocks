@@ -43,8 +43,8 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js'],
     alias: {
-      '@gblx': `${__dirname}/src/core`,
       '@wordpress': `${__dirname}/src/wordpress`,
+      '@gblx': `${__dirname}/src/core`,
       'scss': `${__dirname}/src/core/scss`
     }
   },
