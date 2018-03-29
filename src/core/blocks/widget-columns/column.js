@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 const Column = ({
-  children
+  children,
+  className
 }) => (
-  <div className="gblx-widget-columns__column">
+  <div className={classNames('gblx-widget-columns__column', className)}>
     {children}
   </div>
 )

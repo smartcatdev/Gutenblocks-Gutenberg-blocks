@@ -9,5 +9,8 @@ export const {
   RangeControl,
   Toolbar,
   FormToggle,
-  BaseControl
+  BaseControl,
+  withInstanceId,
+  withState,
+  Dashicon
 } = wp.components

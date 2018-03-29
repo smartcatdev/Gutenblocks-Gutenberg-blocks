@@ -3,5 +3,7 @@ import {
 } from '@wordpress/utils'
 
 export const handleImageUpload = (file, done) => {
-  mediaUpload([file], (media) => done(media[0]), 'image')
+  return new Promise(resolve => {
+    mediaUpload([file], (media) => resolve(media[0]), 'image')
+  })
 }

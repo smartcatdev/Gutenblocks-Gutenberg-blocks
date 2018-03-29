@@ -1,8 +1,40 @@
+@import '~scss/dimensions';
+
 .gblx-widget-columns {
-  &__inner {
-    display: flex;
-  }
-  &__column {
+  &__caption,
+  &__content { text-align: center; }
+}
+
+.gblx-widget-columns__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  @include large-screen {
     flex-direction: row;
   }
+}
+
+.gblx-widget-columns__column {
+  font-size: 12px; // TODO make this dynamic
+  margin: 10px; // TODO make this dynamic
+
+  @include large-screen {
+    flex: 1;
+    width: 0;
+  }
+}
+
+.gblx-widget-columns__image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  border: 1px solid #eee;
+}
+
+.gblx-widget-columns__add-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .dashicon { margin: 0 auto; }
 }
