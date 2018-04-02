@@ -14,7 +14,8 @@ import {
   PanelBody,
   ButtonGroup,
   BaseControl,
-  FormToggle
+  FormToggle,
+  Dashicon
 } from '@wordpress/components'
 import {
   RangeControl
@@ -25,7 +26,6 @@ import Image from './image'
 import Column from './column'
 import Blurb from './blurb'
 import Caption from './caption'
-import Content from './content'
 import './block.scss'
 
 class WidgetColumnsBlock {
@@ -69,40 +69,56 @@ class WidgetColumnsBlock {
       default: false
     },
     caption1: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__1 .gblx-widget-columns__caption'
     },
     caption2: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__2 .gblx-widget-columns__caption'
     },
     caption3: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__3 .gblx-widget-columns__caption'
     },
     caption4: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__4 .gblx-widget-columns__caption'
     },
     content1: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__1 .gblx-widget-columns__blurb'
     },
     content2: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__2 .gblx-widget-columns__blurb'
     },
     content3: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__3 .gblx-widget-columns__blurb'
     },
     content4: {
-      type: 'array'
+      source: 'children',
+      selector: '.gblx-widget-columns__column__4 .gblx-widget-columns__blurb'
     },
     image1: {
-      type: 'string'
+      source: 'attribute',
+      selector: '.gblx-widget-columns__column__1 .gblx-widget-columns__image img',
+      attribute: 'src'
     },
     image2: {
-      type: 'string'
+      source: 'attribute',
+      selector: '.gblx-widget-columns__column__2 .gblx-widget-columns__image img',
+      attribute: 'src'
     },
     image3: {
-      type: 'string'
+      source: 'attribute',
+      selector: '.gblx-widget-columns__column__3 .gblx-widget-columns__image img',
+      attribute: 'src'
     },
     image4: {
-      type: 'string'
+      source: 'attribute',
+      selector: '.gblx-widget-columns__column__4 .gblx-widget-columns__image img',
+      attribute: 'src'
     }
   }
 
@@ -139,7 +155,7 @@ class WidgetColumnsBlock {
             label={__('Margin', 'gblx')}
             onChange={(columnMargin) => setAttributes({ columnMargin })} />
           <RangeControl
-            min={5}
+            min={0}
             max={15}
             value={columnPadding}
             label={__('Padding', 'gblx')}
@@ -292,6 +308,7 @@ class WidgetColumnsBlock {
             return (
               <Column 
                 margin={columnMargin}
+                padding={columnPadding}
                 background={backgroundColor}
                 className={column}>
                 <div className={classNames(
@@ -324,8 +341,7 @@ class WidgetColumnsBlock {
                     }}
                     />
                   </div>
-                <Content
-                  padding={columnPadding}>
+                <div className="gblx-widget-columns__column__content">
                   <Caption
                     fontSize={captionFontSize}
                     brightness={captionBrightness}>
@@ -345,7 +361,7 @@ class WidgetColumnsBlock {
                       onChange={(content) => setAttributes({ [`content${column}`]: content })} 
                       />
                   </Blurb>
-                </Content>
+                </div>
               </Column>
             )
           })}
@@ -356,10 +372,53 @@ class WidgetColumnsBlock {
 
   save = ({ attributes }) => {
     const {
-      widgets
+      backgroundColor,
+      contentFontSize,
+      captionFontSize,
+      captionBrightness,
+      contentBrightness,
+      blockQuote,
+      columns,
+      columnMargin,
+      columnPadding
     } = attributes
     return (
       <div className="gblx-widget-columns"> 
+       <div className="gblx-widget-columns__inner">
+        {Range(columns).map(index => {
+          let column = index + 1
+          let image = attributes[`image${column}`]
+          return (
+            <Column 
+              margin={columnMargin}
+              padding={columnPadding}
+              background={backgroundColor}
+              className={column}>
+              <div className="gblx-widget-columns__image-wrapper">
+                {image 
+                  ? <Image src={image} />
+                  : <div className="gblx-widget-columns__image-placeholder">
+                      <Dashicon icon="format-image" />
+                    </div>
+                }
+              </div>
+              <div className="gblx-widget-columns__column__content">
+                <Caption
+                  fontSize={captionFontSize}
+                  brightness={captionBrightness}>
+                  {attributes[`caption${column}`]}
+                </Caption>
+                  <Blurb
+                    blockQuote={blockQuote}
+                    fontSize={contentFontSize}
+                    brightness={contentBrightness}>
+                    {attributes[`content${column}`]}
+                  </Blurb>
+                </div>
+            </Column>
+          )
+        })}
+       </div>
       </div>
     )
   }

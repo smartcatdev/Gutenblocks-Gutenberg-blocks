@@ -22,7 +22,18 @@
     width: 0;
   }
 
-  &__content { overflow: hidden; }
+  &__content { 
+    padding: 0 6%;
+    overflow: hidden; 
+  }
+}
+
+.gblx-widget-columns__image {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gblx-widget-columns__image-wrapper {
@@ -44,6 +55,12 @@
 }
 
 .gblx-widget-columns__blurb {
+  text-align: center;
+
+  &.is-quote {
+    text-align: left;
+  }
+
   &__quote-icon { 
     float: left; 
     margin-right: 4px;

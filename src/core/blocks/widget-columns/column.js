@@ -3,14 +3,19 @@ import classNames from 'classnames'
 
 const Column = ({
   background,
+  padding,
   margin,
   children,
   className
 }) => (
   <div 
-    className={classNames('gblx-widget-columns__column', className)}
+    className={classNames(
+      'gblx-widget-columns__column', 
+      `gblx-widget-columns__column__${className}`
+    )}
     style={{
       background,
+      padding: `${padding}px`,
       margin: `${margin}px`
     }}>
     {children}
