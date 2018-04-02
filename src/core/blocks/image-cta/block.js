@@ -233,7 +233,7 @@ class ImageCTABlock {
 				<PanelBody title={__('Callout Buttons', 'gblx')}>
 					<BaseControl
 						id="gblx-image-cta__background-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Show Background', 'gblx')}>
 							<FormToggle 
 								id="gblx-image-cta__background-toggle"
@@ -242,7 +242,7 @@ class ImageCTABlock {
 					</BaseControl>
 					<BaseControl
 						id="gblx-image-cta__transform-text-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Transform Text', 'gblx')}>
 							<FormToggle 
 								id="gblx-image-cta__transform-text-toggle"

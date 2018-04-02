@@ -204,7 +204,7 @@ class ColourCTABlock {
 				<PanelBody title={__('Callout Buttons', 'gblx')}>
 					<BaseControl
 						id="gblx-colour-cta__background-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Show Background', 'gblx')}>
 							<FormToggle 
 								id="gblx-colour-cta__background-toggle"
@@ -213,7 +213,7 @@ class ColourCTABlock {
 					</BaseControl>
 					<BaseControl
 						id="gblx-colour-cta__transform-text-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Transform Text', 'gblx')}>
 							<FormToggle 
 								id="gblx-colour-cta__transform-text-toggle"
