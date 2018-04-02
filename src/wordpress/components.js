@@ -12,5 +12,6 @@ export const {
   BaseControl,
   withInstanceId,
   withState,
-  Dashicon
+  Dashicon,
+  ButtonGroup
 } = wp.components

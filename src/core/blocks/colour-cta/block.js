@@ -168,7 +168,7 @@ class ColourCTABlock {
 					<h2>{ __('Display Settings', 'gblx')}</h2>
 					<BaseControl
 						id="gblx-colour-cta__secondary-cta-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Secondary Callout', 'gblx')}>
 						<FormToggle 
 							id="gblx-colour-cta__secondary-cta-toggle"

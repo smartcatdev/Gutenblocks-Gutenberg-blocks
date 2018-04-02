@@ -6,11 +6,15 @@ import {
   MediaUpload,
   InspectorControls,
   registerBlockType,
+  ColorPalette
 } from '@wordpress/blocks'
 import {
   Button,
   IconButton,
-  PanelBody
+  PanelBody,
+  ButtonGroup,
+  BaseControl,
+  FormToggle
 } from '@wordpress/components'
 import {
   RangeControl
@@ -19,8 +23,9 @@ import Range from 'lodash/range'
 import classNames from 'classnames'
 import Image from './image'
 import Column from './column'
-import Content from './content'
+import Blurb from './blurb'
 import Caption from './caption'
+import Content from './content'
 import './block.scss'
 
 class WidgetColumnsBlock {
@@ -35,6 +40,33 @@ class WidgetColumnsBlock {
     columnMargin: {
       type: 'integer',
       default: 10
+    },
+    columnPadding: {
+      type: 'integer',
+      default: 5
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    captionFontSize: {
+      type: 'integer',
+      default: 14
+    },
+    contentFontSize: {
+      type: 'integer',
+      default: 16
+    },
+    captionBrightness: {
+      type: 'integer',
+      default: 60
+    },
+    contentBrightness: {
+      type: 'integer',
+      default: 10
+    },
+    blockQuote: {
+      type: 'boolean',
+      default: false
     },
     caption1: {
       type: 'array'
@@ -79,8 +111,15 @@ class WidgetColumnsBlock {
       return null
     }
     const {
+      backgroundColor,
+      blockQuote,
       columns,
-      columnMargin
+      columnMargin,
+      columnPadding,
+      captionFontSize,
+      contentFontSize,
+      captionBrightness,
+      contentBrightness
     } = attributes
     return (
       <InspectorControls>
@@ -99,6 +138,133 @@ class WidgetColumnsBlock {
             value={columnMargin}
             label={__('Margin', 'gblx')}
             onChange={(columnMargin) => setAttributes({ columnMargin })} />
+          <RangeControl
+            min={5}
+            max={15}
+            value={columnPadding}
+            label={__('Padding', 'gblx')}
+            onChange={(columnPadding) => setAttributes({ columnPadding })} />
+        </PanelBody>
+        <PanelBody title={__('Background Color', 'gblx')}>
+          <ColorPalette
+            value={backgroundColor}
+            onChange={(backgroundColor) => setAttributes({ backgroundColor })}
+          />
+        </PanelBody>
+        <PanelBody title={__('Caption Text', 'gblx')}>
+          <div className="blocks-font-size__main">
+            <ButtonGroup>
+              <Button 
+                onClick={() => setAttributes({ captionFontSize: 14 })}
+                isToggled={captionFontSize === 14}
+                isPrimary={captionFontSize === 14}
+                isLarge>
+                {__('S', 'gblx')}
+              </Button>
+              <Button
+                onClick={() => setAttributes({ captionFontSize: 16 })}
+                isToggled={captionFontSize === 16}
+                isPrimary={captionFontSize === 16}
+                isLarge>
+                {__('M', 'gblx')}
+              </Button>
+              <Button
+                onClick={() => setAttributes({ captionFontSize: 36 })}
+                isToggled={captionFontSize === 36}
+                isPrimary={captionFontSize === 36}
+                isLarge>
+                {__('L', 'gblx')}
+              </Button>
+              <Button
+                onClick={() => setAttributes({ captionFontSize: 48 })}
+                isToggled={captionFontSize === 48}
+                isPrimary={captionFontSize === 48}
+                isLarge>
+                {__('XL', 'gblx')}
+              </Button>
+            </ButtonGroup>
+            <Button
+              onClick={() => setAttributes({ captionFontSize: '' })}
+              isLarge>
+              {__('Reset', 'gblx')}
+            </Button>
+          </div>
+          <RangeControl
+            min={12}
+            max={48}
+            value={captionFontSize}
+            label={__('Custom Size', 'gblx')}
+            beforeIcon="editor-textcolor"
+            afterIcon="editor-textcolor"
+            onChange={(captionFontSize) => setAttributes({ captionFontSize })} />
+          <RangeControl
+            min={0}
+            max={100}
+            value={captionBrightness}
+            label={__('Brightness', 'gblx')}
+            onChange={(captionBrightness) => setAttributes({ captionBrightness })} />
+        </PanelBody>
+        <PanelBody title={__('Content Text', 'gblx')}>
+          <div className="blocks-font-size__main">
+            <ButtonGroup>
+              <Button
+                onClick={() => setAttributes({ contentFontSize: 14 })}
+                isToggled={contentFontSize === 14}
+                isPrimary={contentFontSize === 14}
+                isLarge>
+                {__('S', 'gblx')}
+              </Button>
+              <Button
+                onClick={() => setAttributes({ contentFontSize: 16 })}
+                isToggled={contentFontSize === 16}
+                isPrimary={contentFontSize === 16}
+                isLarge>
+                {__('M', 'gblx')}
+              </Button>
+              <Button
+                onClick={() => setAttributes({ contentFontSize: 36 })}
+                isToggled={contentFontSize === 36}
+                isPrimary={contentFontSize === 36}
+                isLarge>
+                {__('L', 'gblx')}
+              </Button>
+              <Button
+                onClick={() => setAttributes({ contentFontSize: 48 })}
+                isToggled={contentFontSize === 48}
+                isPrimary={contentFontSize === 48}
+                isLarge>
+                {__('XL', 'gblx')}
+              </Button>
+            </ButtonGroup>
+            <Button
+              onClick={() => setAttributes({ contentFontSize: '' })}
+              isLarge>
+              {__('Reset', 'gblx')}
+            </Button>
+          </div>
+          <RangeControl
+            min={12}
+            max={48}
+            value={contentFontSize}
+            label={__('Custom Size', 'gblx')}
+            beforeIcon="editor-textcolor"
+            afterIcon="editor-textcolor"
+            onChange={(contentFontSize) => setAttributes({ contentFontSize })} />
+          <RangeControl
+            min={0}
+            max={100}
+            value={contentBrightness}
+            label={__('Brightness', 'gblx')}
+            onChange={(contentBrightness) => setAttributes({ contentBrightness })} />
+          <BaseControl	
+            id="gblx-wiget-columns__block-quote-toggle"
+						className="components-toggle-control"
+						label={__('Block Quote', 'gblx')}>
+						<FormToggle 
+							id="gblx-wiget-columns__block-quote-toggle"
+							checked={blockQuote}
+							onChange={(e) => setAttributes({ blockQuote: e.target.checked })}/>
+          </BaseControl>
         </PanelBody>
       </InspectorControls>
     )
@@ -106,8 +272,15 @@ class WidgetColumnsBlock {
 
   edit = ({ attributes, setAttributes, isSelected }) => {
     const {
+      backgroundColor,
+      contentFontSize,
+      captionFontSize,
+      captionBrightness,
+      contentBrightness,
+      blockQuote,
       columns,
-      columnMargin
+      columnMargin,
+      columnPadding
     } = attributes
     return (
       <div className="gblx-widget-columns">
@@ -119,6 +292,7 @@ class WidgetColumnsBlock {
             return (
               <Column 
                 margin={columnMargin}
+                background={backgroundColor}
                 className={column}>
                 <div className={classNames(
                   'gblx-widget-columns__image-wrapper', 
@@ -150,19 +324,27 @@ class WidgetColumnsBlock {
                     }}
                     />
                   </div>
-                <Caption>
-                  <RichText 
-                    placeholder={__('Image caption...', 'gblx')}
-                    value={attributes[`caption${column}`]}
-                    onChange={(caption) => setAttributes({ [`caption${column}`]: caption })} 
-                    />
-                </Caption>
-                <Content>
-                  <RichText    
-                    placeholder={__('Type something...', 'gblx')}
-                    value={attributes[`content${column}`]}
-                    onChange={(content) => setAttributes({ [`content${column}`]: content })} 
-                    />
+                <Content
+                  padding={columnPadding}>
+                  <Caption
+                    fontSize={captionFontSize}
+                    brightness={captionBrightness}>
+                    <RichText 
+                      placeholder={__('Image caption...', 'gblx')}
+                      value={attributes[`caption${column}`]}
+                      onChange={(caption) => setAttributes({ [`caption${column}`]: caption })} 
+                      />
+                  </Caption>
+                  <Blurb
+                    blockQuote={blockQuote}
+                    fontSize={contentFontSize}
+                    brightness={contentBrightness}>
+                    <RichText    
+                      placeholder={__('Type something...', 'gblx')}
+                      value={attributes[`content${column}`]}
+                      onChange={(content) => setAttributes({ [`content${column}`]: content })} 
+                      />
+                  </Blurb>
                 </Content>
               </Column>
             )
@@ -184,5 +366,3 @@ class WidgetColumnsBlock {
 }
 
 registerBlockType('gblx/widget-columns', new WidgetColumnsBlock())
-
-console.log(wp)

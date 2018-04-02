@@ -2,7 +2,10 @@
 
 .gblx-widget-columns {
   &__caption,
-  &__content { text-align: center; }
+  &__content { 
+    text-align: center; 
+    margin: 10px auto;
+  }
 }
 
 .gblx-widget-columns__inner {
@@ -14,13 +17,12 @@
 }
 
 .gblx-widget-columns__column {
-  font-size: 12px; // TODO make this dynamic
-  margin: 10px; // TODO make this dynamic
-
   @include large-screen {
     flex: 1;
     width: 0;
   }
+
+  &__content { overflow: hidden; }
 }
 
 .gblx-widget-columns__image-wrapper {
@@ -39,4 +41,11 @@
 
 .gblx-widget-columns__add-image {
   .dashicon { margin: 0 auto; }
+}
+
+.gblx-widget-columns__blurb {
+  &__quote-icon { 
+    float: left; 
+    margin-right: 4px;
+  }
 }

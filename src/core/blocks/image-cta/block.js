@@ -180,7 +180,7 @@ class ImageCTABlock {
 					<h2>{ __('Display Settings', 'gblx')}</h2>
 					<BaseControl
 						id="gblx-image-cta__secondary-cta-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Secondary Callout', 'gblx')}>
 						<FormToggle 
 							id="gblx-image-cta__secondary-cta-toggle"
@@ -222,7 +222,7 @@ class ImageCTABlock {
 					</PanelBody>
 					<BaseControl
 						id="gblx-image-cta__fixed-background-toggle"
-						className="blocks-toggle-control"
+						className="components-toggle-control"
 						label={__('Fixed Background', 'gblx')}>
 						<FormToggle 
 							id="gblx-image-cta__fixed-background-toggle"

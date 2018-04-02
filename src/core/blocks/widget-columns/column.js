@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const Column = ({
+  background,
   margin,
   children,
   className
@@ -9,6 +10,7 @@ const Column = ({
   <div 
     className={classNames('gblx-widget-columns__column', className)}
     style={{
+      background,
       margin: `${margin}px`
     }}>
     {children}
@@ -16,7 +18,8 @@ const Column = ({
 )
 
 Column.propTypes = {
-  margin: PropTypes.number
+  margin: PropTypes.number,
+  background: PropTypes.string
 }
 
 export default Column
