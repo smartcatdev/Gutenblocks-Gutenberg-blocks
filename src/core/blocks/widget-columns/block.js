@@ -32,6 +32,10 @@ class WidgetColumnsBlock {
       type: 'integer',
       default: 3
     },
+    columnMargin: {
+      type: 'integer',
+      default: 10
+    },
     caption1: {
       type: 'array'
     },
@@ -75,7 +79,8 @@ class WidgetColumnsBlock {
       return null
     }
     const {
-      columns
+      columns,
+      columnMargin
     } = attributes
     return (
       <InspectorControls>
@@ -88,6 +93,12 @@ class WidgetColumnsBlock {
             value={columns}
             label={__('Columns', 'gblx')}
             onChange={(columns) => setAttributes({ columns })} />
+          <RangeControl
+            min={0}
+            max={15}
+            value={columnMargin}
+            label={__('Margin', 'gblx')}
+            onChange={(columnMargin) => setAttributes({ columnMargin })} />
         </PanelBody>
       </InspectorControls>
     )
@@ -95,7 +106,8 @@ class WidgetColumnsBlock {
 
   edit = ({ attributes, setAttributes, isSelected }) => {
     const {
-      columns
+      columns,
+      columnMargin
     } = attributes
     return (
       <div className="gblx-widget-columns">
@@ -105,7 +117,9 @@ class WidgetColumnsBlock {
             let column = index + 1
             let image = attributes[`image${column}`]
             return (
-              <Column className={column}>
+              <Column 
+                margin={columnMargin}
+                className={column}>
                 <div className={classNames(
                   'gblx-widget-columns__image-wrapper', 
                   { 'has-image': !!image }
@@ -124,12 +138,12 @@ class WidgetColumnsBlock {
                         )
                       }
                       return (
-                        <div>
-                          {/* <IconButton 
-                            icon="format-image" 
+                        <div className="gblx-widget-columns__image-wrapper__preview"> 
+                          <IconButton 
+                            icon="edit" 
                             onClick={open}
                             className="gblx-widget-columns__edit-image"
-                            /> */}
+                            />
                           <Image src={image} />
                         </div>
                       )

@@ -10,9 +10,7 @@
   flex-direction: column;
   justify-content: space-around;
 
-  @include large-screen {
-    flex-direction: row;
-  }
+  @include large-screen { flex-direction: row; }
 }
 
 .gblx-widget-columns__column {
@@ -29,12 +27,16 @@
   position: relative;
   width: 100%;
   padding-bottom: 100%;
-  border: 1px solid #eee;
+
+  &.has-image { border: none; }
 }
 
-.gblx-widget-columns__add-image {
+.gblx-widget-columns__image-wrapper > :first-child {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+.gblx-widget-columns__add-image {
   .dashicon { margin: 0 auto; }
 }

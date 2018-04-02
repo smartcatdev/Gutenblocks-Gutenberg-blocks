@@ -4,9 +4,7 @@ const Image = ({
   src
 }) => (
   <div className="gblx-widget-columns__image">
-    <div className="gblx-widget-columns__image__centered">
-      <img src={src} />
-    </div>
+    <img src={src} />
   </div>
 )
 

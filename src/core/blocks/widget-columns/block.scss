@@ -1,16 +1,29 @@
 @import './base';
 
 .gblx-widget-columns {
-
-}
-
-.gblx-widget-columns__image-wrapper {
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-
+  &__column:hover &__edit-image { transform: scale(1); }
 }
 
 .gblx-widget-columns__add-image {
   margin: 0 auto;
+  border: 1px solid #eee;
+
+  &:hover { border: none; }
+}
+
+.gblx-widget-columns__edit-image {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  border: 1px solid #efefef;
+  margin: -12px;
+  border-radius: 50%;
+  padding: 6px;
+  transform: scale(0);
+  transition: all .2s ease-in-out;
+  background: #278ff0;
+  color: #fff !important;
+  box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.2) !important;
+
+  &:hover { transform: scale(1.1) !important; }
 }
