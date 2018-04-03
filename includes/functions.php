@@ -7,6 +7,12 @@
  */
 namespace gblx;
 
-function wp_debug() {
-  return defined( 'WP_DEBUG' ) && WP_DEBUG;
+/**
+ * Check to see if the plugin is in dev mode.
+ * 
+ * @since 0.0.1
+ * @package gblx
+ */
+function in_dev_mode() {
+  return the_bool_of_truth( get_option( Options::DEVELOPER_MODE ) );
 }

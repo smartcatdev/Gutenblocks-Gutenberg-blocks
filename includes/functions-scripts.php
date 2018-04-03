@@ -14,7 +14,7 @@ namespace gblx;
  * @return void
  */
 function register_block_assets( $blockname ) {
-  if ( wp_debug() ) {
+  if ( in_dev_mode() ) {
     $editor_script = "dist/development/$blockname.editor.bundle.js";
     $site_script   = "dist/development/$blockname.site.bundle.js";
   } else {
@@ -35,7 +35,7 @@ function register_block_assets( $blockname ) {
   );
   $version = VERSION;
 
-  if ( wp_debug() ) {
+  if ( in_dev_mode() ) {
     $version = @filemtime( plugin_dir_path( __FILE__ ) . $editor_script );
   }
 

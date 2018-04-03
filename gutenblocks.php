@@ -46,6 +46,14 @@ class Gutenblocks {
     include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
     include_once dirname( __FILE__ ) . '/includes/functions-blocks.php';
     include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
+    include_once dirname( __FILE__ ) . '/includes/functions-sanitize.php';
+
+    /**
+     * Admin includes
+     */
+    if ( is_admin() ) {
+      include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
+    }
   }
 
 }
@@ -70,4 +78,14 @@ function gutenblocks() {
  */
 function plugin_file() {
   return __FILE__;
+}
+
+/**
+ * Get the plugin directory path.
+ * 
+ * @since 0.0.1
+ * @return string
+ */
+function plugin_dir( $path = '' ) {
+  return plugin_dir_path( __FILE__ ) . ltrim( $path, '/' );
 }
