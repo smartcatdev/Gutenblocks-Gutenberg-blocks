@@ -1,1 +1,0 @@
-export const { addFilter } = wp.hooks
