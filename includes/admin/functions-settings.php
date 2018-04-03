@@ -81,6 +81,9 @@ function settings_page_html() { ?>
       ?>
     </div>
   </form>
+  <div>
+    <?php echo get_plugin_docs(); ?>
+  </div>
 <?php }
 
 /**
@@ -100,3 +103,17 @@ function settings_field_dev_mode_cb() {
     <?php _e( 'Load development bundles (development build required)', 'gblx' ); ?>
   </label>
 <?php }
+
+/**
+ * Get the plugin documentation
+ * 
+ * @since 0.0.1
+ * @return void
+ */
+function get_plugin_docs() {
+  if ( !class_exists( 'Parsedown' ) ) {
+    include_once plugin_dir( '/includes/library/parsedown.php' );
+  }
+  $parser = new \Parsedown();
+  return $parser->text( file_get_contents( plugin_dir( 'documentation.md' ) ) );
+}

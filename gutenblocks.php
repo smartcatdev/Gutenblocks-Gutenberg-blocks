@@ -52,6 +52,7 @@ class Gutenblocks {
      * Admin includes
      */
     if ( is_admin() ) {
+      include_once dirname( __FILE__ ) . '/includes/admin/functions-scripts.php';
       include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
     }
   }
