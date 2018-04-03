@@ -62,13 +62,13 @@ function wp_debug() {
 
 function register_block_assets( $blockname ) {
   if ( wp_debug() ) {
-    $editor_script = "build/$blockname.editor.bundle.js";
-    $site_script = "build/$blockname.site.bundle.js";
+    $editor_script = "dist/development/$blockname.editor.bundle.js";
+    $site_script   = "dist/development/$blockname.site.bundle.js";
   } else {
-    $editor_script = "build/$blockname.editor.production.min.js";
-    $editor_styles = "build/$blockname.editor.css";
-    $site_script = "build/$blockname.site.production.min.js";
-    $site_styles = "build/$blockname.site.css";
+    $editor_script = "dist/production/$blockname.editor.min.js";
+    $editor_styles = "dist/production/$blockname.editor.css";
+    $site_script   = "dist/production/$blockname.site.min.js";
+    $site_styles   = "dist/production/$blockname.site.css";
   }
 
   $editor_deps = array( 

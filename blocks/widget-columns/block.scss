@@ -1,0 +1,30 @@
+@import './base';
+
+.gblx-widget-columns {
+  &__image-wrapper:hover &__edit-image { transform: scale(1); }
+}
+
+.gblx-widget-columns__add-image {
+  margin: 0 auto;
+  border: 1px solid #eee;
+  background: #fff;
+  
+  &:hover { border: none; }
+}
+
+.gblx-widget-columns__edit-image {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  margin: -12px;
+  padding: 6px;
+  transform: scale(0);
+  border-radius: 50%;
+  border: 1px solid #efefef;
+  transition: all 0.1s ease-in-out;
+  background: #278ff0;
+  color: #fff !important;
+  box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.2) !important;
+
+  &:hover { transform: scale(1.2) !important; }
+}

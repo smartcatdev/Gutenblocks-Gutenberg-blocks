@@ -5,9 +5,6 @@ const merge = require('webpack-merge'),
       UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(config, {
-  output: {
-    filename: '[name].production.min.js',
-  },
   module: {
     rules: [
       {
@@ -30,5 +27,9 @@ module.exports = merge(config, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     })
-  ]
+  ],
+  output: {
+    filename: '[name].min.js',
+    path: `${__dirname}/dist/production`,
+  }
 })

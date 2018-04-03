@@ -1,0 +1,115 @@
+@import '~scss/dimensions';
+
+.gblx-image-cta {
+  position: relative;
+  background-size: cover;
+  height: auto;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
+
+  &.has-parallax {
+    background-attachment: fixed;
+  }
+
+  &__header h2, 
+  &__content p {
+    z-index: 1;
+    max-width: 636px;
+    color: inherit;
+    text-align: center;
+    font-size: inherit;
+    line-height: inherit !important;
+  }
+
+  @include mobile {
+    & {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+
+  @include large-screen {
+    &.has-left-alignment {
+      align-items: flex-start;
+    }
+    &.has-left-alignment & {
+      &__callouts,
+      &__header h2, 
+      &__content p { text-align: left; }
+    }
+
+    &.has-right-alignment {
+      align-items: flex-end;
+    }
+    &.has-right-alignment & {
+      &__callouts,
+      &__header h2, 
+      &__content p { text-align: right; }
+    }
+  }
+}
+
+.gblx-image-cta__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.gblx-image-cta__inner {
+  z-index: 1;
+  position: relative;
+  top: 100px;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.gblx-image-cta__callouts {
+  text-align: center;
+  width: 100%;
+  margin: 15px auto;
+}
+
+.gblx-image-cta__callout {
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  min-width: 20px;
+
+  > * {
+    color: inherit;
+  }
+
+  &:hover {
+    text-decoration: none;
+    box-shadow: none;
+  }
+
+  &.has-transform > * {
+    text-transform: uppercase;
+  }
+
+  @include mobile {
+    & { margin: 10px auto !important; }
+  }
+
+  @include large-screen {
+    & { display: inline-block; }
+    &:first-of-type { margin-left:  0 !important; }
+    &:last-of-type  { margin-right: 0 !important; }
+  }
+}  
+
+.gblx-image-cta__primary-cta, 
+.gblx-image-cta__secondary-cta {
+  height: 50px;
+  line-height: 50px !important;
+}

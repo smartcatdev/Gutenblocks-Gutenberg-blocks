@@ -1,0 +1,13 @@
+@import './base';
+
+.gblx-image-cta {
+  .callout > *:hover { cursor: text; }
+}
+
+.gblx-image-cta__links input[type=url] {
+  width: 100%;
+  margin: 1px;
+  padding: 3px 5px;
+  height: 28px;
+  line-height: 1;
+}

@@ -1,0 +1,1 @@
+export { default as RangeControl } from './range-control'

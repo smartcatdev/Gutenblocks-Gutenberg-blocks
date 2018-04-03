@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js --env development",
-    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --end production",
-    "clean": "rm -rf ./build/*",
+    "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --env production",
+    "clean": "rm -rf ./dist/*",
     "start": "yarn run develop"
   },
   "devDependencies": {

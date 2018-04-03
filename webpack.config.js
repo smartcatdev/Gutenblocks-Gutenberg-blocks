@@ -14,7 +14,7 @@ const getBlocks = (path) => {
 }
 
 module.exports = {
-  entry: getBlocks(`${__dirname}/src/core/blocks`),
+  entry: getBlocks(`${__dirname}/blocks`),
   module: {
     rules: [
       {
@@ -43,13 +43,13 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.js'],
     alias: {
-      '@wordpress': `${__dirname}/src/wordpress`,
-      '@gblx': `${__dirname}/src/core`,
-      'scss': `${__dirname}/src/core/scss`
+      '@wordpress': `${__dirname}/wordpress`,
+      '@gblx': `${__dirname}/core`,
+      'scss': `${__dirname}/scss`
     }
   },
   output: {
     filename: '[name].bundle.js',
-    path: `${__dirname}/build`,
+    path: `${__dirname}/dist`,
   }
 }

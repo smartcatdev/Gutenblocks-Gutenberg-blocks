@@ -3,4 +3,7 @@ const merge = require('webpack-merge'),
 
 module.exports = merge(config, {
   devtool: 'inline-source-map',
+  output: {
+    path: `${__dirname}/dist/development`,
+  }
 })
