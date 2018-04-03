@@ -4,99 +4,70 @@
  * Description: A collection of useful Gutenberg blocks
  * Version: 0.0.1
  * 
- * @since 0.0.1a
+ * @since 0.0.1
  * @package gblx
  */
 namespace gblx;
 
-const VERSION = '1.0.0';
+// Include constants
+include_once dirname( __FILE__ ) . '/constants.php';
+include_once dirname( __FILE__ ) . '/includes/trait-singleton.php';
 
-add_action( 'init', 'gblx\register_blocks' );
+// Boot the plugin
+add_action( 'plugins_loaded', 'gblx\gutenblocks' );
 
-function register_blocks() {
-  $block_types = array(
-    'gblx/image-cta' => array(
-      'init' => function () {
-        register_block_assets( 'image-cta' );
-      },
-      'config' => array(
-        'editor_script' => 'gblx-image-cta-editor',
-        'editor_style'  => 'gblx-image-cta-editor',
-        'script' => 'gblx-image-cta',
-        'style'  => 'gblx-image-cta'
-      )
-    ),
-    'gblx/colour-cta' => array(
-      'init' => function () {
-        register_block_assets( 'colour-cta' );
-      },
-      'config' => array(
-        'editor_script' => 'gblx-colour-cta-editor',
-        'editor_style'  => 'gblx-colour-cta-editor',
-        'script' => 'gblx-colour-cta',
-        'style'  => 'gblx-colour-cta'
-      )
-      ),
-      'gblx/widget-columns' => array(
-        'init' => function () {
-          register_block_assets( 'widget-columns' );
-        },
-        'config' => array(
-          'editor_script' => 'gblx-widget-columns-editor',
-          'editor_style'  => 'gblx-widget-columns-editor',
-          'script' => 'gblx-widget-columns',
-          'style'  => 'gblx-widget-columns'
-        )
-      )
-  );
-
-  foreach( $block_types as $type => $block ) {
-    call_user_func( $block['init'] );
-    register_block_type( $type, $block['config'] );
-  }
-}
-
-function wp_debug() {
-  return defined( 'WP_DEBUG' ) && WP_DEBUG;
-}
-
-function register_block_assets( $blockname ) {
-  if ( wp_debug() ) {
-    $editor_script = "dist/development/$blockname.editor.bundle.js";
-    $site_script   = "dist/development/$blockname.site.bundle.js";
-  } else {
-    $editor_script = "dist/production/$blockname.editor.min.js";
-    $editor_styles = "dist/production/$blockname.editor.css";
-    $site_script   = "dist/production/$blockname.site.min.js";
-    $site_styles   = "dist/production/$blockname.site.css";
-  }
-
-  $editor_deps = array( 
-    'wp-blocks', 
-    'wp-i18n', 
-    'wp-element',
-    'wp-components'
-  );
-  $site_deps = array(
-    'jquery'
-  );
-  $version = VERSION;
-
-  if ( wp_debug() ) {
-    $version = filemtime( plugin_dir_path( __FILE__ ) . $editor_script );
-  }
-
-  if ( !is_admin() ) {
-    wp_register_script( "gblx-$blockname", plugins_url( $site_script, __FILE__ ), $site_deps, $version );
-  }
-
-  wp_register_script( "gblx-$blockname-editor", plugins_url( $editor_script , __FILE__ ), $editor_deps, $version );
-
-  if ( !empty( $editor_styles ) ) {
-    wp_register_style("gblx-$blockname-editor", plugins_url( $editor_styles, __FILE__ ), null, $version );
-  }
+/**
+ * 
+ * @since 0.0.1
+ * @scope Singleton
+ */
+class Gutenblocks {
   
-  if ( !is_admin() && !empty( $site_styles ) ) {
-    wp_register_style("gblx-$blockname", plugins_url( $site_styles, __FILE__ ), null, $version );
+  use Singleton;
+
+  /**
+   * Initialize the plugin.
+   * 
+   * @since 0.0.1
+   * @return void
+   */
+  protected function init() {
+    $this->do_includes();
   }
+
+  /**
+   * Include dependencies
+   * 
+   * @since 0.0.1
+   * @return void
+   */
+  private function do_includes() {
+    include_once dirname( __FILE__ ) . '/includes/functions.php';
+    include_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
+    include_once dirname( __FILE__ ) . '/includes/functions-blocks.php';
+    include_once dirname( __FILE__ ) . '/includes/functions-settings.php';
+  }
+
+}
+
+/**
+ * Get the plugin instance
+ * 
+ * @action plugins_loaded
+ * 
+ * @since 0.0.1
+ * @return Gutenblocks
+ */
+function gutenblocks() {
+  return Gutenblocks::instance();
+}
+
+/**
+ * Get the plugin root file.
+ * 
+ * @since 0.0.1
+ * @return string
+ */
+function plugin_file() {
+  return __FILE__;
 }
