@@ -11,5 +11,4 @@ deploy:
   file: 'release.zip'
   skip_cleanup: true
   on:
-    all_branches: true
     tags: true
