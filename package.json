@@ -9,7 +9,8 @@
     "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js --env development",
     "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --env production",
     "clean": "rm -rf ./dist/*",
-    "start": "yarn run develop"
+    "start": "yarn run develop",
+    "zip": "./scripts/zip.sh"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
