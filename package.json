@@ -1,6 +1,6 @@
 {
   "name": "gutenberg-gutenblocks",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "main": "index.js",
   "repository": "https://github.com/smartcatdev/Gutenblocks-Gutenberg-blocks.git",
   "author": "Eric Green <eric@smartcat.ca>",
