@@ -115,5 +115,5 @@ function get_plugin_docs() {
     include_once plugin_dir( '/includes/library/parsedown.php' );
   }
   $parser = new \Parsedown();
-  return $parser->text( file_get_contents( plugin_dir( 'documentation.md' ) ) );
+  return $parser->text( file_get_contents( plugin_dir( 'README.md' ) ) );
 }
