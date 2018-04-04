@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Gutenblocks
  * Description: A collection of useful Gutenberg blocks
- * Version: 0.0.1
+ * Version: 1.0.0
  * 
  * @since 0.0.1
  * @package gblx
