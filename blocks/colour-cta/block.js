@@ -133,6 +133,10 @@ class ColourCTABlock {
 		calloutFontSize: {
 			type: 'integer',
 			default: 18
+		},
+		spacing: {
+			type: 'integer',
+			default: 15
 		}
 	}
 	
@@ -160,12 +164,20 @@ class ColourCTABlock {
 			verticalPadding,
 			horizontalPadding,
 			primaryCalloutURL,
-			secondaryCalloutURL
+			secondaryCalloutURL,
+			spacing
 		} = attributes
 		return (
 			<InspectorControls>
-				<div>
-					<h2>{ __('Display Settings', 'gblx')}</h2>
+				<PanelBody title={__('Layout Settings', 'gblx')}>
+					<RangeControl
+						min={0}
+						max={30}
+						value={spacing}
+						label={__('Spacing', 'gblx')}
+						onChange={(spacing) => setAttributes({ spacing })} />
+				</PanelBody>
+				<PanelBody title={__('Display Settings', 'gblx')}>
 					<BaseControl
 						id="gblx-colour-cta__secondary-cta-toggle"
 						className="components-toggle-control"
@@ -195,7 +207,7 @@ class ColourCTABlock {
 							label={__('Horizontal Padding', 'gblx')}
 							onChange={(horizontalPadding) => setAttributes({ horizontalPadding })} />
 					</PanelBody>
-				</div>
+				</PanelBody>
 				<PanelBody title={__('Background Color', 'gblx')}>
 					<ColorPalette 
 						value={backgroundColor} 
@@ -253,6 +265,7 @@ class ColourCTABlock {
 							max={24}
 							value={calloutFontSize}
 							beforeIcon="editor-textcolor"
+							afterIcon="editor-textcolor"
 							label={__('Font Size', 'gblx')}
 							onChange={(calloutFontSize) => setAttributes({ calloutFontSize })} />
 					</PanelBody>
@@ -296,6 +309,7 @@ class ColourCTABlock {
 						value={headerFontSize}
 						label={__('Header Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
+						afterIcon="editor-textcolor"
 						onChange={(headerFontSize) => setAttributes({ headerFontSize })} />
 					<RangeControl
 						min={12}
@@ -303,6 +317,7 @@ class ColourCTABlock {
 						value={contentFontSize}
 						label={__('Content Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
+						afterIcon="editor-textcolor"
 						onChange={(contentFontSize) => setAttributes({ contentFontSize })} />
 					<RangeControl
 						min={0}

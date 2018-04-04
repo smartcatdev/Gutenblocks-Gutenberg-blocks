@@ -14,7 +14,8 @@ const Wrapper = ({
   overlayOpacity, 
   verticalAlignment,
   verticalPadding,
-  horizontalPadding 
+  horizontalPadding,
+  spacing 
 }) => (
   <section 
     className={classNames('gblx-image-cta', {
@@ -25,7 +26,8 @@ const Wrapper = ({
     style={{ 
       color: `hsl(0, 0%, ${textBrightness}%)`,
       backgroundImage: `url(${background})`, 
-      padding: `${verticalPadding}px ${horizontalPadding}px`
+      padding: `${verticalPadding}px ${horizontalPadding}px`,
+      marginBottom: `${spacing}px`
     }}>
     <div 
       style={{ 
@@ -52,7 +54,8 @@ Wrapper.propTypes = {
   overlayOpacity: PropTypes.number,
   verticalAlignment: PropTypes.number,
   verticalPadding: PropTypes.number,
-  horizontalPadding: PropTypes.number
+  horizontalPadding: PropTypes.number,
+  spacing: PropTypes.number
 }
 
 export default Wrapper

@@ -26,6 +26,7 @@ import Image from './image'
 import Column from './column'
 import Blurb from './blurb'
 import Caption from './caption'
+import Wrapper from './wrapper'
 import './block.scss'
 
 class WidgetColumnsBlock {
@@ -33,6 +34,10 @@ class WidgetColumnsBlock {
 	icon = 'columns'
 	category = 'widgets'
 	attributes = {
+    spacing: {
+      type: 'integer',
+      default: 15
+    },
     columns: {
       type: 'integer',
       default: 3
@@ -135,12 +140,12 @@ class WidgetColumnsBlock {
       captionFontSize,
       contentFontSize,
       captionBrightness,
-      contentBrightness
+      contentBrightness,
+      spacing
     } = attributes
     return (
       <InspectorControls>
-        <PanelBody>
-          <h2>{__('Layout Settings', 'gblx')}</h2>
+        <PanelBody title={__('Layout Settings', 'gblx')}>
           <RangeControl
             min={1}
             max={4}
@@ -148,6 +153,12 @@ class WidgetColumnsBlock {
             value={columns}
             label={__('Columns', 'gblx')}
             onChange={(columns) => setAttributes({ columns })} />
+          <RangeControl
+						min={0}
+						max={30}
+						value={spacing}
+						label={__('Spacing', 'gblx')}
+						onChange={(spacing) => setAttributes({ spacing })} />
           <RangeControl
             min={0}
             max={15}
@@ -299,7 +310,7 @@ class WidgetColumnsBlock {
       columnPadding
     } = attributes
     return (
-      <div className="gblx-widget-columns">
+      <Wrapper {...attributes}>
         {this.renderInspector({ attributes, setAttributes, isSelected })}
         <div className="gblx-widget-columns__inner">
           {Range(columns).map(index => {
@@ -366,7 +377,7 @@ class WidgetColumnsBlock {
             )
           })}
         </div>
-      </div>
+      </Wrapper>
     )
   }
 
@@ -383,7 +394,7 @@ class WidgetColumnsBlock {
       columnPadding
     } = attributes
     return (
-      <div className="gblx-widget-columns"> 
+      <Wrapper {...attributes}> 
        <div className="gblx-widget-columns__inner">
         {Range(columns).map(index => {
           let column = index + 1
@@ -419,7 +430,7 @@ class WidgetColumnsBlock {
           )
         })}
        </div>
-      </div>
+      </Wrapper>
     )
   }
 }

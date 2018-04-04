@@ -143,6 +143,10 @@ class ImageCTABlock {
 		calloutFontSize: {
 			type: 'integer',
 			default: 18
+		},
+		spacing: {
+			type: 'integer',
+			default: 15
 		}
 	}
 	
@@ -172,12 +176,20 @@ class ImageCTABlock {
 			verticalPadding,
 			horizontalPadding,
 			primaryCalloutURL,
-			secondaryCalloutURL
+			secondaryCalloutURL,
+			spacing
 		} = attributes
 		return (
 			<InspectorControls>
-				<div>
-					<h2>{ __('Display Settings', 'gblx')}</h2>
+				<PanelBody title={__('Layout Settings', 'gblx')}>
+					<RangeControl
+						min={0}
+						max={30}
+						value={spacing}
+						label={__('Spacing', 'gblx')}
+						onChange={(spacing) => setAttributes({ spacing })} />
+				</PanelBody>
+				<PanelBody title={__('Display Settings', 'gblx')}>
 					<BaseControl
 						id="gblx-image-cta__secondary-cta-toggle"
 						className="components-toggle-control"
@@ -207,7 +219,7 @@ class ImageCTABlock {
 							label={__('Horizontal Padding', 'gblx')}
 							onChange={(horizontalPadding) => setAttributes({ horizontalPadding })} />
 					</PanelBody>
-				</div>
+				</PanelBody>
 				<PanelBody title={__('Background Settings', 'gblx')}>
 					<ColorPalette 
 							value={overlayColor} 
@@ -282,6 +294,7 @@ class ImageCTABlock {
 							max={24}
 							value={calloutFontSize}
 							beforeIcon="editor-textcolor"
+							afterIcon="editor-textcolor"
 							label={__('Font Size', 'gblx')}
 							onChange={(calloutFontSize) => setAttributes({ calloutFontSize })} />
 					</PanelBody>
@@ -325,6 +338,7 @@ class ImageCTABlock {
 						value={headerFontSize}
 						label={__('Header Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
+						afterIcon="editor-textcolor"
 						onChange={(headerFontSize) => setAttributes({ headerFontSize })} />
 					<RangeControl
 						min={12}
@@ -332,6 +346,7 @@ class ImageCTABlock {
 						value={contentFontSize}
 						label={__('Content Font Size', 'gblx')}
 						beforeIcon="editor-textcolor"
+						afterIcon="editor-textcolor"
 						onChange={(contentFontSize) => setAttributes({ contentFontSize })} />
 					<RangeControl
 						min={0}
