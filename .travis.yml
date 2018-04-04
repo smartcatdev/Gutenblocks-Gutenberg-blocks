@@ -6,7 +6,13 @@ cache:
   - node_modules
 script:
   - yarn build
-  - zip -r release.zip . -x "*node_modules*" -x "*.git*"
+  - > 
+    zip -r release.zip . 
+        -x "node_modules*" 
+        -x "*webpack.*.js"
+        -x ".*"
+        -x "*.lock"
+        -x "package.json"
 deploy:
   provider: releases
   api_key: ${GITHUB_API_KEY}
