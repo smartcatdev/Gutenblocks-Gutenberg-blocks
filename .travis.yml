@@ -1,0 +1,14 @@
+language: node_js
+cache:
+  directories:
+  - node_modules
+script:
+- yarn build
+deploy:
+  provider: releases
+  api_key: ${GITHUB_API_KEY}
+  file: 'release.zip'
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
