@@ -18,8 +18,7 @@ import {
   Dashicon
 } from '@wordpress/components'
 import {
-  RangeControl,
-  VectorIcon
+  RangeControl
 } from '@gblx/components'
 import Range from 'lodash/range'
 import classNames from 'classnames'
@@ -31,7 +30,7 @@ import './block.scss'
 
 class WidgetColumnsBlock {
   title = __('Widget Columns', 'gblx')
-	icon = <VectorIcon icon="columns" />
+	icon = 'columns'
 	category = 'widgets'
 	attributes = {
     columns: {
