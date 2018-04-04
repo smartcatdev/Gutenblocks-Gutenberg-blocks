@@ -32,7 +32,11 @@ class Gutenblocks {
    * @return void
    */
   protected function init() {
-    $this->do_includes();
+    if ( $this->check_for_gutenberg() ) {
+      $this->do_includes();
+    } else {
+      make_admin_notice( sprintf( '<p>%s</p>', __( 'Gutenblocks requires Gutenberg to be active', 'gblx' ) ) );
+    }
   }
 
   /**
@@ -55,6 +59,16 @@ class Gutenblocks {
       include_once dirname( __FILE__ ) . '/includes/admin/functions-scripts.php';
       include_once dirname( __FILE__ ) . '/includes/admin/functions-settings.php';
     }
+  }
+
+  /**
+   * Check to see if Gutenber is active.
+   * 
+   * @since 0.0.1
+   * @return bool
+   */
+  private function check_for_gutenberg() {
+    return function_exists( 'register_block_type' );
   }
 
 }
@@ -89,4 +103,16 @@ function plugin_file() {
  */
 function plugin_dir( $path = '' ) {
   return plugin_dir_path( __FILE__ ) . ltrim( $path, '/' );
+}
+
+/**
+ * Make a notice in the WordPress admin.
+ * 
+ * @since 0.0.1
+ * @return bool
+ */
+function make_admin_notice( $message, $type = 'error', $dismissible = true ) {
+  return add_action( 'admin_notices', function () use ( $message, $type, $dismissible ) {
+    printf( '<div class="notice notice-%1$s %2$s">%3$s</div>', esc_attr( $type ), $dismissible ? 'is-dismissible' : '', $message );
+  } );
 }
