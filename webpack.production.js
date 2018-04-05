@@ -27,9 +27,5 @@ module.exports = merge(config, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     })
-  ],
-  output: {
-    filename: '[name].min.js',
-    path: `${__dirname}/dist/production`,
-  }
+  ]
 })

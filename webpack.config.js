@@ -1,20 +1,19 @@
-const glob = require('glob'),
-      fs = require('fs-extra')
+const { flatMap, assign } = require('lodash')
 
-const getBlocks = (path) => {
-  let entries = {}
-  fs.readdirSync(path)
-    .forEach(file => {
-      if (fs.statSync(`${path}/${file}`).isDirectory()) {
-        entries[`${file}.editor`] = `${path}/${file}/block.js`
-        entries[`${file}.site`] = `${path}/${file}/pkg.js`
-      }
-    })
-  return entries
-}
+const BLOCKS = [
+  'colour-cta',
+  'image-cta',
+  'widget-columns'
+]
+
+const ENTRY_POINTS = flatMap(BLOCKS, entry => [ 
+  { [`${entry}/editor`]: `${__dirname}/blocks/${entry}/block.js` }, 
+  { [`${entry}/public`]: `${__dirname}/blocks/${entry}/pkg.js`   } 
+])
+.reduce((entries, entry) => assign(entries, entry));
 
 module.exports = {
-  entry: getBlocks(`${__dirname}/blocks`),
+  entry: ENTRY_POINTS,
   module: {
     rules: [
       {
@@ -45,11 +44,11 @@ module.exports = {
     alias: {
       '@wordpress': `${__dirname}/wordpress`,
       '@gblx': `${__dirname}/core`,
-      'scss': `${__dirname}/scss`
+      'scss':  `${__dirname}/scss`
     }
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     path: `${__dirname}/dist`,
   }
 }

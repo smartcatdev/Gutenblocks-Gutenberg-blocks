@@ -17,7 +17,7 @@ const VERSION = '1.0.0';
  * 
  * @since 0.0.1
  */
-interface Options {
+interface OPTIONS {
 
   /**
    * @since 0.0.1
