@@ -50,5 +50,17 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: `${__dirname}/dist`,
+  },
+  optimization: {
+    runtimeChunk: false,
+    splitChunks: {
+      cacheGroups: {
+        common: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        },
+      }
+    }
   }
 }

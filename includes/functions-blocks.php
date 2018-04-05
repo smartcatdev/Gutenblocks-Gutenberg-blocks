@@ -21,10 +21,8 @@ add_action( 'init', 'gblx\register_block_types' );
 function register_block_types() {
   $block_types = array(
     'gblx/image-cta' => array(
-      'init' => function () {
-        register_block_assets( 'image-cta' );
-      },
-      'config' => array(
+      'basename' => 'image-cta', 
+      'config'   => array(
         'editor_script' => 'gblx-image-cta-editor',
         'editor_style'  => 'gblx-image-cta-editor',
         'script' => 'gblx-image-cta',
@@ -32,10 +30,8 @@ function register_block_types() {
       )
     ),
     'gblx/colour-cta' => array(
-      'init' => function () {
-        register_block_assets( 'colour-cta' );
-      },
-      'config' => array(
+      'basename' => 'colour-cta',
+      'config'   => array(
         'editor_script' => 'gblx-colour-cta-editor',
         'editor_style'  => 'gblx-colour-cta-editor',
         'script' => 'gblx-colour-cta',
@@ -43,10 +39,8 @@ function register_block_types() {
       )
       ),
       'gblx/widget-columns' => array(
-        'init' => function () {
-          register_block_assets( 'widget-columns' );
-        },
-        'config' => array(
+        'basename' => 'widget-columns',
+        'config'   => array(
           'editor_script' => 'gblx-widget-columns-editor',
           'editor_style'  => 'gblx-widget-columns-editor',
           'script' => 'gblx-widget-columns',
@@ -56,7 +50,7 @@ function register_block_types() {
   );
 
   foreach( $block_types as $type => $block ) {
-    call_user_func( $block['init'] );
+    register_block_assets( $block['basename'] );
     register_block_type( $type, $block['config'] );
   }
 }

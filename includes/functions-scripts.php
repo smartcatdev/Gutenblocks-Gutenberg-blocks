@@ -7,6 +7,9 @@
  */
 namespace gblx;
 
+// Register default scripts
+add_action( 'init', 'gblx\register_default_scripts' );
+
 /**
  * Register frontend and admin scripts for a block
  * 
@@ -32,20 +35,18 @@ function register_block_assets( $blockname ) {
     'wp-blocks', 
     'wp-i18n', 
     'wp-element',
-    'wp-components'
+    'wp-components',
+    'gblx-vendor'
   );
   $site_deps = array(
-    'jquery'
+    'jquery',
+    'gblx-vendor'
   );
-  $version = VERSION;
-
-  if ( in_dev_mode() ) {
-    $version = @filemtime( plugin_dir_path( __FILE__ ) . $editor_script );
-  }
+  $version = get_script_version( $editor_script );
 
   if ( is_admin() ) {
     if ( !empty( $editor_styles ) ) {
-      wp_register_style("gblx-$blockname-editor", plugins_url( $editor_styles, plugin_file() ), null, $version );
+      wp_register_style( "gblx-$blockname-editor", plugins_url( $editor_styles, plugin_file() ), null, $version );
     }
 
     wp_register_script( "gblx-$blockname-editor", plugins_url( $editor_script , plugin_file() ), $editor_deps, $version );
@@ -58,4 +59,31 @@ function register_block_assets( $blockname ) {
     wp_register_script( "gblx-$blockname", plugins_url( $site_script, plugin_file() ), $site_deps, $version );
   }
 
+}
+
+/**
+ * Register default scripts and styles
+ * 
+ * @action init
+ * 
+ * @since 1.0.0
+ * @return void
+ */
+function register_default_scripts() {
+  $version = get_script_version( plugin_dir( 'dist/vendor.js' ) );
+  wp_register_script( 'gblx-vendor', plugins_url( 'dist/vendor.js', plugin_file() ), null, $version );
+}
+
+/**
+ * Get the version number for a script
+ * 
+ * @since 1.0.0
+ * @return void
+ */
+function get_script_version( $file ) {
+  if ( in_dev_mode() ) {
+    return @filemtime( plugin_dir( $file ) );
+  }
+
+  return VERSION;
 }
