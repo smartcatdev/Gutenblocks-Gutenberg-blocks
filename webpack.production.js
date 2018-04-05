@@ -5,6 +5,7 @@ const merge = require('webpack-merge'),
       UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(config, {
+  mode: 'production',
   module: {
     rules: [
       {
