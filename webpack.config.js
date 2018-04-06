@@ -3,17 +3,24 @@ const { flatMap, assign } = require('lodash')
 const BLOCKS = [
   'colour-cta',
   'image-cta',
-  'widget-columns'
+  'widget-columns',
+  'featured-posts'
 ]
 
-const ENTRY_POINTS = flatMap(BLOCKS, entry => [ 
-  { [`${entry}/editor`]: `${__dirname}/blocks/${entry}/block.js` }, 
-  { [`${entry}/public`]: `${__dirname}/blocks/${entry}/pkg.js`   } 
+const ENTRY_POINTS = {
+  'block-editor': `${__dirname}/block-editor/index.js`
+}
+
+const blockPaths = flatMap(BLOCKS, entry => [ 
+    { [`${entry}/editor`]: `${__dirname}/blocks/${entry}/block.js` }, 
+    { [`${entry}/public`]: `${__dirname}/blocks/${entry}/pkg.js`   } 
 ])
-.reduce((entries, entry) => assign(entries, entry));
+.reduce(
+  (entries, entry) => assign(entries, entry)
+)
 
 module.exports = {
-  entry: ENTRY_POINTS,
+  entry: assign(ENTRY_POINTS, blockPaths),
   module: {
     rules: [
       {

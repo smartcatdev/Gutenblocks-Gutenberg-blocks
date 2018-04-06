@@ -34,9 +34,12 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-solid": "^5.0.9",
+    "@fortawesome/react-fontawesome": "^0.0.18",
     "classnames": "^2.2.5",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
-    "react": "^16.2.0"
+    "react": "^16.2.0"  
   }
 }

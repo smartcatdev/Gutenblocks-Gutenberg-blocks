@@ -20,6 +20,7 @@ import {
 import {
   RangeControl
 } from '@gblx/components'
+import Icon from '@gblx/fontawesome'
 import Range from 'lodash/range'
 import classNames from 'classnames'
 import Image from './image'
@@ -31,7 +32,7 @@ import './block.scss'
 
 class WidgetColumnsBlock {
   title = __('Widget Columns', 'gblx')
-	icon = 'columns'
+	icon = <Icon icon="columns" />
 	category = 'widgets'
 	attributes = {
     spacing: {

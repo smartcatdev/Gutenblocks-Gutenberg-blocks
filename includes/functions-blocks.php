@@ -46,7 +46,16 @@ function register_block_types() {
           'script' => 'gblx-widget-columns',
           'style'  => 'gblx-widget-columns'
         )
-      )
+        ),
+        'gblx/featured-posts' => array(
+          'basename' => 'featured-posts',
+          'config'   => array(
+            'editor_script' => 'gblx-featured-posts-editor',
+            'editor_style'  => 'gblx-featured-posts-editor',
+            'script' => 'gblx-featured-posts',
+            'style'  => 'gblx-featured-posts'
+          )
+        )
   );
 
   foreach( $block_types as $type => $block ) {

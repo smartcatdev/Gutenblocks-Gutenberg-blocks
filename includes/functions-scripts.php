@@ -10,6 +10,9 @@ namespace gblx;
 // Register default scripts
 add_action( 'init', 'gblx\register_default_scripts' );
 
+// Enqueue block editor scripts
+add_action( 'enqueue_block_editor_assets', 'gblx\enqueue_block_editor_scripts' );
+
 /**
  * Register frontend and admin scripts for a block
  * 
@@ -84,6 +87,18 @@ function get_script_version( $file ) {
   if ( in_dev_mode() ) {
     return @filemtime( plugin_dir( $file ) );
   }
-
   return VERSION;
+}
+
+/**
+ * Enqueue scripts for the Gutenberg editor
+ * 
+ * @action enqueue_block_editor_assets
+ * 
+ * @since 1.0.1
+ * @return void
+ */
+function enqueue_block_editor_scripts() {
+  $version = get_script_version( plugin_dir( 'dist/block-editor.js' ) );
+  wp_enqueue_script( 'gblx-block-editor', plugins_url( 'dist/block-editor.js', plugin_file() ), null, $version );
 }

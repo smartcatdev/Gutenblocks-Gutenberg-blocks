@@ -26,6 +26,7 @@ import {
 import {
 	relativeRange 
 } from '@gblx/utils/math'
+import Icon from '@gblx/fontawesome'
 import Wrapper from './wrapper'
 import Content from './content'
 import Callout from './callout'
@@ -39,7 +40,7 @@ import './block.scss'
  */
 class ImageCTABlock {
 	title = __('Image CTA', 'gblx')
-	icon = 'megaphone'
+	icon = <Icon icon="mouse-pointer" />
 	category = 'widgets'
 	attributes = {
 		headerText: {
