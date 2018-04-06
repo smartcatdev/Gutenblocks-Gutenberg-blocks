@@ -1,6 +1,6 @@
 === Gutenblocks ===
 Contributors: smartcat
-Tags: Gutenberg,block,
+Tags: Gutenberg,block,gutenblocks,blocks,gutenberg blocks
 Requires at least: 4.9.4
 Tested up to: 4.9.5
 Stable tag: 1.0.0
