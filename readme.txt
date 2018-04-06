@@ -2,12 +2,12 @@
 Contributors: smartcat
 Tags: Gutenberg,block,
 Requires at least: 4.9.4
-Tested up to: 4.9.4
-Stable tag: 0.0.1
+Tested up to: 4.9.5
+Stable tag: 1.0.0
 License: GPLv2 or later
 Requires PHP: 5.5
 
-A collection of useful Gutenberg blocks
+A collection of powerful advanced blocks for Gutenberg editor
 
 == Description ==
 Guteblocks is a collection of Gutenberg blocks for the new WordPress editor.
@@ -19,4 +19,4 @@ Guteblocks is a collection of Gutenberg blocks for the new WordPress editor.
 
 == Changelog == 
 
-= 0.1a = initial release
+= 1.0.0 = initial release
