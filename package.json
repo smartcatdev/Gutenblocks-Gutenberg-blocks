@@ -10,9 +10,11 @@
     "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --env production",
     "clean": "rm -rf ./dist/*",
     "start": "yarn run develop",
-    "zip": "./scripts/zip.sh"
+    "zip": "./scripts/zip.js",
+    "release": "yarn build && yarn zip"
   },
   "devDependencies": {
+    "archiver": "^2.1.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -26,6 +28,7 @@
     "mini-css-extract-plugin": "^0.2.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
+    "shelljs": "^0.8.1",
     "style-loader": "^0.20.3",
     "styled-jsx": "^2.2.6",
     "uglifyjs-webpack-plugin": "^1.2.4",
