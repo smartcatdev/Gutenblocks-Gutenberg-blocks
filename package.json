@@ -1,6 +1,6 @@
 {
   "name": "gutenberg-gutenblocks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "https://github.com/smartcatdev/Gutenblocks-Gutenberg-blocks.git",
   "author": "Eric Green <eric@smartcat.ca>",
@@ -8,7 +8,7 @@
   "scripts": {
     "develop": "yarn run clean && ./node_modules/.bin/webpack -d --watch --config webpack.development.js --env development",
     "build": "yarn run clean && ./node_modules/.bin/webpack -p --progress --config webpack.production.js --env production",
-    "clean": "rm -rf ./dist/*",
+    "clean": "./node_modules/.bin/shx rm -rf ./dist/*",
     "start": "yarn run develop",
     "zip": "./scripts/zip.js",
     "release": "yarn build && yarn zip"
@@ -29,6 +29,7 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
     "shelljs": "^0.8.1",
+    "shx": "^0.2.2",
     "style-loader": "^0.20.3",
     "styled-jsx": "^2.2.6",
     "uglifyjs-webpack-plugin": "^1.2.4",
